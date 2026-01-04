@@ -116,11 +116,6 @@ abbr -S cn='notify' > /dev/null
 # ripgrep
 abbr -S r='rg -i --color=auto --colors=path:fg:yellow --colors=match:fg:green --hidden' > /dev/null
 
-{{ if eq .chezmoi.os "linux" }}
-abbr -S obsidian='obsidian --enable-features=UseOzonePlatform --ozone-platform=wayland' > /dev/null
-abbr -S chromium='chromium --enable-features=UseOzonePlatform --ozone-platform=wayland' > /dev/null
-abbr -S capacity='cat /sys/class/power_supply/BAT0/capacity' > /dev/null
-{{ end }}
 # ====== ./abbreviation ======
 
 # ====== functions ======

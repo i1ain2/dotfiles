@@ -1,127 +1,49 @@
-# Claude Code Context
+# Chezmoi Dotfiles - プロジェクトコンテキスト
 
-## Environment Overview
-- **Dotfiles Management**: chezmoi with templating and conditional logic
-- **OS Support**: macOS (Darwin) + Linux (Arch Linux)
-- **Shell**: zsh (Powerlevel10k, sheldon plugin manager) + fish shell support
-- **Terminal**: Alacritty with Tokyo Night theme, HackGen35 Console NF font
-- **Editor**: Neovim with custom Lua configuration
+## 概要
+- **管理ツール**: chezmoi（Go テンプレート対応）
+- **OS**: macOS (Darwin) + Arch Linux
+- **シェル**: zsh (P10k) + fish
+- **ターミナル**: Alacritty, Ghostty
+- **エディタ**: Neovim
 
-## Development Tools & Environment
-```
-Languages: Node.js, Go (1.23.0), Python, Rust
-Package Managers: mise, brew (macOS), pacman (Arch)
-Key Tools:
-- fzf (fuzzy finder)
-- ghq (repository management)
-- lazygit (git TUI)
-- tmux (terminal multiplexer)
-- kubectl (Kubernetes)
-- terraform
-- navi (command cheatsheet)
-- direnv (environment management)
-```
+## Chezmoi 基本操作
 
-## Important Aliases & Abbreviations
 ```bash
-# Core commands
-c → claude
-n → nvim
-g → git
-t → tmux a -t 0 || tmux -u
-lg → lazygit
-r → rg (ripgrep with custom colors)
-
-# Git shortcuts
-git s → git switch
-git st → git status
-git d → git diff
-git l → git log
-git g → git log --graph (pretty format)
-git a → git add
-git ap → git add -p
-git c → git commit -m
-git p → git push -u origin
-
-# Development
-serve → python3 -m http.server
-k → kubectl
+chezmoi diff      # 変更確認（必須）
+chezmoi apply     # 適用
+chezmoi edit ~/.config/nvim/init.lua  # ソース編集
+chezmoi add ~/.newconfig              # 新規追加
 ```
 
-## Custom Functions & Key Bindings
-```bash
-# Functions
-cdt()       # cd to temporary directory
-cts()       # run TypeScript with ts-node
-lock-screen() # swaylock for Linux
+## ディレクトリマッピング
 
-# Key Bindings
-Ctrl-x Ctrl-o → fzf-git menu
-Ctrl-x Ctrl-g → fzf cd to ghq repository
-Ctrl-x Ctrl-e → edit command in nvim
-Ctrl-x Ctrl-h → navi cheat sheet widget
-```
-
-## Chezmoi Management
-
-### Key Concepts
-- **Templates**: `.tmpl` files support Go templating with conditional logic
-- **OS-specific configs**: macOS (Darwin) and Linux support
-- **Private files**: `private_` prefix for sensitive data
-- **Run-once scripts**: `run_once_*.sh.tmpl` for initial setup
-
-### Directory Mapping
 ```
 dot_config/              → ~/.config/
 dot_zshrc.tmpl          → ~/.zshrc
 dot_gitconfig.tmpl      → ~/.gitconfig
-private_dot_local/      → ~/.local/ (sensitive)
-run_once_packages_*.sh  → Package installation scripts
+private_dot_local/      → ~/.local/ (機密情報)
+run_once_*.sh.tmpl      → 初期セットアップスクリプト
 ```
 
-### Common Operations
-```bash
-# Review changes
-chezmoi diff
+## テンプレート構文
 
-# Apply changes
-chezmoi apply
-
-# Edit source files
-chezmoi edit ~/.zshrc
-
-# Add new file to chezmoi
-chezmoi add ~/.newconfig
-```
-
-### Template Variables
 ```go
-{{ if eq .chezmoi.os "darwin" }}  # macOS specific
-{{ if eq .chezmoi.os "linux" }}   # Linux specific
+{{ if eq .chezmoi.os "darwin" }}  # macOS
+{{ if eq .chezmoi.os "linux" }}   # Linux
 ```
 
-## Configuration Files Structure
-```
-~/.config/
-├── alacritty/alacritty.toml     # Terminal config
-├── nvim/                        # Neovim configuration
-├── fish/                        # Fish shell (alternative)
-├── mise/config.toml            # Development tools
-├── hypr/                       # Hyprland (Linux)
-├── sway/                       # Sway WM (Linux)
-└── waybar/                     # Status bar (Linux)
-```
+## 主要設定ファイル
 
-## Package Management
-- **macOS**: Homebrew packages defined in template variables
-- **Linux**: Pacman packages for Arch Linux
-- **Development tools**: Managed by mise (Node.js, Go, etc.)
-- **Shell plugins**: Managed by sheldon
+- `alacritty/alacritty.toml.tmpl` - ターミナル設定（Tokyo Night）
+- `ghostty/config.tmpl` - Ghostty ターミナル
+- `fish/config.fish.tmpl` - Fish シェル
+- `dot_zshrc.tmpl` - Zsh 設定
+- `dot_gitconfig.tmpl` - Git 設定
 
-## Important Notes
-- Always use `chezmoi diff` before `chezmoi apply`
-- Alacritty lacks native audio bell support on macOS
-- Claude Code has no built-in task completion hooks
-- Enable notifications: System Preferences → Notifications → Script Editor → Allow
-- Fish shell functions mirror zsh equivalents
-- P10k theme configuration stored in `~/.local/share/zsh/.p10k.zsh`
+## 重要事項
+
+- **必ず** `chezmoi diff` → `chezmoi apply` の順で実行
+- テンプレートファイルは `.tmpl` 拡張子必須
+- 機密情報は `private_` プレフィックス使用
+- P10k 設定: `~/.local/share/zsh/.p10k.zsh`
