@@ -1,0 +1,54 @@
+" #####################################################
+" This file is under control by chezmoi.
+" #####################################################
+
+" ======== 汎用的な設定 ========
+" 文字コード
+set encoding=utf-8
+
+let mapleader = "\<Space>"
+
+" タブ設定
+set expandtab " tab入力時にspaceを入力
+set tabstop=2 " 画面上でtab文字が占める幅
+set shiftwidth=2 " 自動インデントでずれる幅
+autocmd FileType python setlocal et ts=4 sts=4
+autocmd FileType go setlocal sw=4 ts=4 sts=4 noet
+
+" 不可視文字
+set list
+set listchars=tab:»-,trail:-,nbsp:%,eol:↲
+
+" backspace
+set backspace=indent,eol,start
+
+" ベル無効化
+set belloff=all
+
+" バッファ操作
+nnoremap <silent> <C-l> :bnext<CR>
+nnoremap <silent> <C-h> :bprev<CR>
+
+" quickfix用設定
+nnoremap [q :cprevious<CR>   " 前へ
+nnoremap ]q :cnext<CR>       " 次へ
+nnoremap [Q :<C-u>cfirst<CR> " 最初へ
+nnoremap ]Q :<C-u>clast<CR>  " 最後へ
+autocmd QuickFixCmdPost *grep* cwindow
+
+" 検索
+set hlsearch "検索文字列をハイライトする
+set incsearch "インクリメンタルサーチを行う
+set ignorecase "大文字と小文字を区別しない
+set smartcase "大文字と小文字が混在した言葉で検索を行った場合に限り、大文字と小文字を区別する
+set wrapscan "最後尾まで検索を終えたら次の検索で先頭に移る
+
+" 検索除外
+set wildignore=*/node_modules/**,*/git/**
+
+" 検索対象を中央に
+nmap n nzz
+nmap N Nzz
+nmap * *zz
+nmap # #zz
+" ======== ./汎用的な設定========

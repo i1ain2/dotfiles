@@ -1,0 +1,26 @@
+#!/bin/bash
+set -euo pipefail
+
+echo_info() {
+  echo -e "\033[32m[INFO]\033[0m $1"
+}
+
+{{ if or (eq .chezmoi.os "darwin") (eq .chezmoi.osRelease.name "Arch Linux") -}}
+echo_info "Checking mise installation..."
+
+if ! type mise > /dev/null 2>&1; then
+  echo -e "\033[31m[ERROR]\033[0m mise is not installed" >&2
+  echo "mise should have been installed by the packages script" >&2
+  exit 1
+fi
+
+echo_info "Installing mise tools from config..."
+mise install || {
+  echo -e "\033[31m[ERROR]\033[0m Failed to install mise tools" >&2
+  exit 1
+}
+
+echo_info "mise tools installed successfully"
+{{ else -}}
+echo_info "Skipping mise install on unsupported OS"
+{{ end -}}

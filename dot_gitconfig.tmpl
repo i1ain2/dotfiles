@@ -1,0 +1,69 @@
+{{ if (eq .chezmoi.username "i1ain2" )}}
+[user]
+	email = i1ain2.me@gmail.com
+	name = i1ain2
+[github]
+	user = i1ain2
+{{ end }}
+
+[column]
+  ui = auto
+[branch]
+  sort = -committerdate
+[tag]
+  sort = version:refname
+[init]
+  defaultBranch = main
+[push]
+  default = simple
+  autoSetupRemote = true
+  followTags = true
+[fetch]
+  prune = true
+  pruneTags = true
+  all = true
+[help]
+  autocorrect = prompt
+[commit]
+  verbose = true
+[rerere]
+  enabled = true
+  autoupdate = true
+[core]
+  pager = delta
+  excludesfile = ~/.gitignore
+[rebase]
+  autoSquash = true
+  autoStash = true
+  updateRefs = true
+
+[alias]
+  st = status
+  br = branch
+  cm = commit
+  co = checkout
+
+[interactive]
+  diffFilter = delta --color-only
+
+[delta]
+  side-by-side = true
+  line-numbers = true
+  keep-plus-minus-mar = true
+  navigate = true
+  pure-style = bold syntax "#002800"
+
+[merge]
+  conflictstyle = diff3
+
+[ghq]
+  root = ~/src
+
+[credential "https://github.com"]
+	helper =
+	helper = !gh auth git-credential
+[credential "https://gist.github.com"]
+	helper =
+	helper = !gh auth git-credential
+[pull]
+	ff = only

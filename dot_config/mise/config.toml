@@ -1,0 +1,64 @@
+[tools]
+# ==========================================
+# Cloud & Infrastructure
+# ==========================================
+gcloud = "latest"      # Google Cloud SDK
+terraform = "latest"   # Infrastructure as Code
+
+# ==========================================
+# Development Languages & Runtimes
+# ==========================================
+node = "latest"        # Node.js runtime
+go = "latest"          # Go programming language
+bun = "latest"         # Fast JavaScript runtime & toolkit
+uv = "latest"          # Python package manager (pip alternative)
+
+# ==========================================
+# Package Managers
+# ==========================================
+pnpm = "latest"        # Fast, disk space efficient package manager
+
+# ==========================================
+# Version Control & Repository Management
+# ==========================================
+github-cli = "latest"  # GitHub's official CLI (gh)
+ghq = "latest"         # Remote repository management
+lazygit = "latest"     # Terminal UI for git commands
+
+# ==========================================
+# Kubernetes Tools
+# ==========================================
+stern = "latest"       # Multi-pod log tailing
+kubie = "latest"       # Kubernetes context switching
+kind = "latest"        # Kubernetes in Docker (local clusters)
+
+# ==========================================
+# CLI Utilities & Productivity
+# ==========================================
+bat = "latest"         # cat alternative with syntax highlighting
+delta = "latest"       # Git diff viewer with syntax highlighting
+direnv = "latest"      # Environment variable management per directory
+fd = "latest"          # find alternative (fast file search)
+fzf = "latest"         # Fuzzy finder for command-line
+jq = "latest"          # JSON processor
+ripgrep = "latest"     # Fast recursive search (rg)
+tmux = "latest"        # Terminal multiplexer
+tree-sitter = "latest" # Parser generator for syntax highlighting
+yq = "latest"          # YAML/XML/TOML processor
+
+# ==========================================
+# Monitoring & Performance Tools
+# ==========================================
+bottom = "latest"      # System monitor (btm)
+fastfetch = "latest"   # System information tool
+lazydocker = "latest"  # Terminal UI for Docker
+hey = "latest"         # HTTP load generator
+hyperfine = "latest"   # Command-line benchmarking tool
+
+# ==========================================
+# Cargo Packages (Rust ecosystem)
+# ==========================================
+"cargo:sheldon" = "latest"  # Shell plugin manager
+
+[settings]
+idiomatic_version_file_enable_tools = []

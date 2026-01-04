@@ -1,0 +1,8 @@
+
+{{ if eq .chezmoi.os "darwin" }}
+sway
+waybar
+hypr
+niri
+environment.d
+{{ end }}

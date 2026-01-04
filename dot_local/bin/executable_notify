@@ -1,0 +1,87 @@
+#!/usr/bin/env bash
+
+# Generic Notification Script for macOS and Linux
+# Sends desktop notification with customizable title and message
+
+set -euo pipefail
+
+# Configuration
+DEFAULT_TITLE="Notification"
+DEFAULT_MESSAGE="Alert"
+LOG_DIR="/var/tmp"
+LOG_FILE="$LOG_DIR/notifications-$(date '+%Y%m%d').log"
+SOUND_FILE_MAC="$HOME/Library/Sounds/notification.aiff"  # Optional custom sound for macOS
+
+# Detect OS
+detect_os() {
+    case "$(uname -s)" in
+        Darwin*)
+            echo "macos"
+            ;;
+        Linux*)
+            echo "linux"
+            ;;
+        *)
+            echo "unknown"
+            ;;
+    esac
+}
+
+# macOS notification function
+notify_macos() {
+    local title="$1"
+    local message="$2"
+
+    # Play sound (if custom sound exists, otherwise use system default)
+    if [[ -f "$SOUND_FILE_MAC" ]]; then
+        afplay "$SOUND_FILE_MAC" &
+    else
+        # Use system default notification sound
+        afplay /System/Library/Sounds/Glass.aiff &
+    fi
+
+    # Send desktop notification
+    osascript -e "display notification \"$message\" with title \"$title\" sound name \"Glass\""
+}
+
+# Linux notification function
+notify_linux() {
+    local title="$1"
+    local message="$2"
+
+    # Check if notify-send is available
+    if ! command -v notify-send &> /dev/null; then
+        echo "Error: notify-send is not installed. Please install libnotify." >&2
+        return 1
+    fi
+
+    # Send desktop notification with icon
+    notify-send -i dialog-information "$title" "$message"
+}
+
+# Parse arguments
+TITLE="${1:-$DEFAULT_TITLE}"
+MESSAGE="${2:-$DEFAULT_MESSAGE}"
+TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
+
+# Log the notification
+echo "[$TIMESTAMP] $TITLE: $MESSAGE" >> "$LOG_FILE"
+
+# Detect OS and send notification
+OS_TYPE=$(detect_os)
+
+case "$OS_TYPE" in
+    macos)
+        notify_macos "$TITLE" "$MESSAGE"
+        ;;
+    linux)
+        notify_linux "$TITLE" "$MESSAGE"
+        ;;
+    *)
+        echo "Error: Unsupported OS" >&2
+        exit 1
+        ;;
+esac
+
+# Optional: Brief visual feedback in terminal
+echo "🔔 Notification: $TITLE - $MESSAGE"

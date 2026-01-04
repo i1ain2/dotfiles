@@ -1,0 +1,43 @@
+if status is-interactive
+    # Commands to run in interactive sessions can go here
+end
+
+# [alias]
+alias rm='rm -i'
+alias diff='diff -U1'
+alias cp='cp -i'
+
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+alias n='nvim'
+alias h='history -i'
+
+alias g='lazygit'
+alias gs="git status"
+alias gd="git diff"
+alias gl="git log"
+alias gitlg="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+alias ga="git add"
+alias gap="git add -p"
+alias gc="git commit -m"
+alias gco="git checkout"
+alias gp="git push -u origin"
+alias gsh="git stash"
+
+alias serve='python3 -m http.server'
+
+alias t='tmux a -t 0 || tmux -u'
+
+# mise
+if type -q mise
+  mise activate fish | source
+end
+
+# zoxide
+if type -q zoxide
+  zoxide init fish | source
+end

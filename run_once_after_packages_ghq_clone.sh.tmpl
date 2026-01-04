@@ -1,0 +1,26 @@
+#!/bin/bash
+set -euo pipefail
+
+echo_info() {
+  echo -e "\033[32m[INFO]\033[0m $1"
+}
+
+{{ if or (eq .chezmoi.os "darwin") (eq .chezmoi.osRelease.name "Arch Linux") -}}
+mkdir -p ~/src
+
+CLONE_PATH=~/src/github.com/i1ain2/cheats
+if [ -d "$CLONE_PATH" ]; then
+  echo_info "cheats repository already cloned"
+  exit 0
+fi
+
+echo_info "Cloning cheats repository..."
+ghq clone https://github.com/i1ain2/cheats || {
+  echo "Failed to clone cheats" >&2
+  exit 1
+}
+
+echo_info "cheats repository cloned successfully"
+{{ else -}}
+echo_info "Skipping ghq clone on unsupported OS"
+{{ end -}}

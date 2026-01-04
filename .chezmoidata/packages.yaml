@@ -1,0 +1,190 @@
+packages:
+  # ==========================================
+  # Global Notes:
+  # - rustup: Manual installation required
+  # - Build tools: Installed via shell scripts
+  # ==========================================
+
+  linux:
+    pacman:
+    # ==========================================
+    # Window Manager & Display System
+    # ==========================================
+    - 'wayland'                      # Wayland compositor protocol
+    - 'niri'                         # Scrollable-tiling Wayland compositor
+    - 'xwayland-satellite'           # Xwayland outside Wayland compositor
+    - 'xdg-desktop-portal-gnome'     # GNOME desktop portal for screen sharing
+    - 'xdg-desktop-portal-gtk'       # GTK implementation of desktop portal
+    - 'ly'                           # TUI display manager
+
+    # ==========================================
+    # Japanese Input Method
+    # ==========================================
+    - 'fcitx5'                       # Input method framework
+    - 'fcitx5-configtool'            # Configuration tool for fcitx5
+    - 'fcitx5-gtk'                   # GTK integration for fcitx5
+    - 'fcitx5-mozc'                  # Japanese input (Google Mozc)
+    - 'fcitx5-gt'                    # Google Translate integration
+
+    # ==========================================
+    # Connectivity & Networking
+    # ==========================================
+    - 'bluez'                        # Bluetooth protocol stack
+    - 'bluez-utils'                  # Bluetooth utilities (bluetoothctl)
+    - 'iwd'                          # Wireless daemon (iwctl)
+    - 'wayvnc'                       # VNC server for Wayland compositors
+
+    # ==========================================
+    # Audio System
+    # ==========================================
+    - 'pulseaudio'                   # Audio server
+    - 'pavucontrol'                  # PulseAudio volume control GUI
+
+    # ==========================================
+    # GUI Shell Components (Dank Material Shell)
+    # ==========================================
+    - 'quickshell'                   # Qt-based shell component framework
+    - 'cava'                         # Console audio visualizer
+    - 'wl-clipboard'                 # Wayland clipboard utilities (wl-copy/wl-paste)
+    - 'cliphist'                     # Clipboard history manager
+    - 'satty'                        # Screenshot annotation tool
+    - 'dgop'                         # TUI system resource monitor
+    - 'matugen'                      # Material Design 3 color scheme generator
+    - 'qt6-multimedia'               # Qt6 multimedia library (audio/camera/video)
+
+    # ==========================================
+    # Terminal Emulator
+    # ==========================================
+    - 'ghostty'                      # Fast GPU-accelerated terminal
+
+    # ==========================================
+    # Documentation & Help
+    # ==========================================
+    - 'man'                          # Manual pages
+    - 'tldr'                         # Simplified command examples
+
+    # ==========================================
+    # Base Utilities
+    # ==========================================
+    - 'tree'                         # Directory tree visualizer
+    - 'unzip'                        # ZIP archive extractor
+    - 'wget'                         # File downloader
+    - 'xdg-utils'                    # Desktop integration utilities (xdg-open)
+    - 'feh'                          # Lightweight image viewer
+
+    # ==========================================
+    # Browser & File Manager
+    # ==========================================
+    - 'firefox'                      # Web browser
+    - 'firefox-i18n-ja'              # Firefox Japanese language pack
+    - 'dolphin'                      # KDE file manager
+
+    # ==========================================
+    # Shell
+    # ==========================================
+    - 'zsh'                          # Z shell
+
+    # ==========================================
+    # Development Tools
+    # ==========================================
+    - 'neovim'                       # Hyperextensible Vim-based text editor
+    - 'git'                          # Version control system
+    - 'docker'                       # Container runtime
+    - 'docker-buildx'                # Docker CLI plugin for extended build
+    - 'httpie'                       # User-friendly HTTP client
+    - 'navi'                         # Interactive cheatsheet tool
+
+    # ==========================================
+    # Applications
+    # ==========================================
+    - 'tailscale'                    # Mesh VPN
+
+    # ==========================================
+    # Productivity & Note-taking
+    # ==========================================
+    - 'obsidian'                     # Knowledge base & note-taking
+
+    paru:
+    # ==========================================
+    # GUI Shell (AUR)
+    # ==========================================
+    - 'dms-shell-bin'                # Dank Material Shell (binary)
+
+    # ==========================================
+    # Fonts (AUR)
+    # ==========================================
+    - 'ttf-hackgen'                  # HackGen programming font
+
+    # ==========================================
+    # Development Tools (AUR)
+    # ==========================================
+    - 'iwgtk'                        # Lightweight WiFi GUI (iwd frontend)
+    - 'mise'                         # Polyglot runtime manager
+
+    # ==========================================
+    # Other Applications (AUR)
+    # ==========================================
+    - '1password'                    # Password manager
+  darwin:
+    brew:
+    # ==========================================
+    # Development Tools (CLI)
+    # ==========================================
+    - 'neovim'                       # Hyperextensible Vim-based text editor
+    - 'httpie'                       # User-friendly HTTP client
+    - 'mise'                         # Polyglot runtime manager
+    - 'navi'                         # Interactive cheatsheet tool
+
+    brew_cask:
+    # ==========================================
+    # Terminal & Launcher
+    # ==========================================
+    - 'ghostty'                      # Fast GPU-accelerated terminal
+    - 'raycast'                      # Spotlight replacement & productivity tool
+
+    # ==========================================
+    # Fonts
+    # ==========================================
+    - 'font-hack-nerd-font'          # Hack font with Nerd Font patches
+
+    # ==========================================
+    # Browsers
+    # ==========================================
+    - 'firefox'                      # Mozilla Firefox browser
+    - 'google-chrome'                # Google Chrome browser
+
+    # ==========================================
+    # Development & Editors
+    # ==========================================
+    - 'visual-studio-code'           # Microsoft VS Code editor
+    - 'coteditor'                    # Lightweight plain text editor for macOS
+    - 'httpie'                       # HTTPie desktop client
+
+    # ==========================================
+    # Communication
+    # ==========================================
+    - 'discord'                      # Voice, video, and text chat platform
+
+    # ==========================================
+    # Productivity & Note-taking
+    # ==========================================
+    - 'obsidian'                     # Knowledge base & note-taking
+    - 'todoist'                      # Task management
+    - 'anki'                         # Spaced repetition flashcard app
+
+    # ==========================================
+    # Utilities
+    # ==========================================
+    - '1password'                    # Password manager
+    - 'dropbox'                      # Cloud storage & sync
+    - 'tailscale'                    # Mesh VPN
+    - 'rectangle'                    # Window management
+
+    manual:
+    # ==========================================
+    # Manual Installation Required
+    # (App Store or direct download)
+    # ==========================================
+    - 'RunCat'                       # Menu bar cat runner (activity monitor)
+    - 'session'                      # Session messenger
+    - 'voicevox'                     # Japanese text-to-speech

@@ -1,0 +1,305 @@
+#####################################################
+# This file is under control by chezmoi.
+#####################################################
+
+{{ if eq .chezmoi.os "darwin" }}
+# homebrew
+export PATH=/opt/homebrew/Cellar/llvm/11.0.0/bin/:$PATH
+export PATH=/opt/homebrew/bin:$PATH
+{{ end }}
+
+# zsh plugin manager
+if type sheldon > /dev/null 2>&1; then
+  eval "$(sheldon source)"
+fi
+
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.local/share/zsh/.p10k.zsh ]] || source ~/.local/share/zsh/.p10k.zsh
+
+zstyle :compinstall filename '/home/i1ain2/.zshrc'
+autoload -Uz compinit
+compinit
+
+# ====== zsh ======
+# Options
+setopt share_history
+
+# default shell
+export SHELL=/bin/zsh
+
+# Language
+export LANG=en_US.UTF-8
+
+# History
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+
+# Like emacs keybindings
+# The zsh-abbr will not work by the magic-space, when you use `bindkey -e`.
+bindkey '^A' beginning-of-line
+bindkey '^B' backward-char
+bindkey '^D' delete-char
+bindkey '^E' end-of-line
+bindkey '^F' forward-char
+bindkey '^H' backward-delete-char
+bindkey '^K' kill-line
+bindkey '^L' clear-screen
+bindkey '^N' down-line-or-history
+bindkey '^P' up-line-or-history
+bindkey '^R' history-incremental-search-backward
+bindkey '^S' history-incremental-search-forward
+bindkey '^T' transpose-chars
+bindkey '^U' kill-whole-line
+bindkey '^V' quoted-insert
+bindkey '^W' backward-kill-word
+bindkey '^Y' yank
+bindkey '^_' undo
+bindkey '^[b' backward-word
+bindkey '^[d' kill-word
+bindkey '^[f' forward-word
+bindkey '^[k' kill-line
+bindkey '^[l' down-case-word
+bindkey '^[u' up-case-word
+bindkey '^[y' yank-pop
+bindkey '^[^?' backward-kill-word
+bindkey '^?' backward-delete-char
+# ====== ./zsh ======
+
+# ====== alias ======
+alias rm='rm -i'
+alias diff='diff -U1'
+alias cp='cp -i'
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+
+(( $+commands[xdg-open] )) && alias open='xdg-open'
+# ====== ./alias ======
+
+# ====== abbreviation ======
+abbr -S ll='ls -alF' > /dev/null
+abbr -S la='ls -A' > /dev/null
+abbr -S l='ls -CF' > /dev/null
+abbr -S n='nvim' > /dev/null
+abbr -S h='history -i' > /dev/null
+
+abbr -S lg='lazygit' > /dev/null
+abbr -S g="git" > /dev/null
+abbr -S "git s"="git status" > /dev/null
+abbr -S "git d"="git diff" > /dev/null
+abbr -S "git l"="git log" > /dev/null
+abbr -S "git g"="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit" > /dev/null
+abbr -S "git a"="git add -p" > /dev/null
+abbr -S "git c"="git commit -m" > /dev/null
+abbr -S "git p"="git push -u origin" > /dev/null
+abbr -S "git sh"="git stash" > /dev/null
+abbr -S "git w"="git worktree" > /dev/null
+
+abbr -S serve='python3 -m http.server' > /dev/null
+abbr -S t='tmux a -t 0 || tmux -u' > /dev/null
+abbr -S k='kubectl' > /dev/null
+
+# Claude
+abbr -S c='claude' > /dev/null
+abbr -S 'claude c'='claude 適切な粒度でコミットして ref:git-commit-message' > /dev/null
+
+# Claude Code with notification
+abbr -S cn='notify' > /dev/null
+
+# ripgrep
+abbr -S r='rg -i --color=auto --colors=path:fg:yellow --colors=match:fg:green --hidden' > /dev/null
+
+{{ if eq .chezmoi.os "linux" }}
+abbr -S obsidian='obsidian --enable-features=UseOzonePlatform --ozone-platform=wayland' > /dev/null
+abbr -S chromium='chromium --enable-features=UseOzonePlatform --ozone-platform=wayland' > /dev/null
+abbr -S capacity='cat /sys/class/power_supply/BAT0/capacity' > /dev/null
+{{ end }}
+# ====== ./abbreviation ======
+
+# ====== functions ======
+cdt() {
+  cd $(mktemp -d)
+}
+
+cts() {
+  npx ts-node --compilerOptions '{"strict":true}' $1
+}
+
+lock-screen() {
+  swaylock -c 000000
+}
+
+# Ctrl-x Ctrl-o でfzf-gitのメニューを表示する関数
+_fzf_git_menu() {
+  local result key
+  local saved_buffer="$BUFFER"
+  local saved_cursor="$CURSOR"
+
+  {
+    echo "Select fzf-git function:"
+    echo "f) Files"
+    echo "b) Branches"
+    echo "t) Tags"
+    echo "r) Remotes"
+    echo "h) commit Hashes"
+    echo "s) Stashes"
+    echo "l) refLogs"
+    echo "w) Worktrees"
+    echo "e) Each ref"
+
+    read -k1 key
+    echo  # 改行
+  } >/dev/tty
+
+  case $key in
+    f) result=$(_fzf_git_files) ;;
+    b) result=$(_fzf_git_branches) ;;
+    t) result=$(_fzf_git_tags) ;;
+    r) result=$(_fzf_git_remotes) ;;
+    h) result=$(_fzf_git_hashes) ;;
+    s) result=$(_fzf_git_stashes) ;;
+    l) result=$(_fzf_git_lreflogs) ;;
+    w) result=$(_fzf_git_worktrees) ;;
+    e) result=$(_fzf_git_each_ref) ;;
+    *)
+      BUFFER="$saved_buffer"
+      CURSOR="$saved_cursor"
+      zle reset-prompt
+      return 1
+      ;;
+  esac
+
+  if [ -n "$result" ]; then
+    BUFFER="${saved_buffer} ${result}"
+    CURSOR=${#BUFFER}
+  else
+    BUFFER="$saved_buffer"
+    CURSOR="$saved_cursor"
+  fi
+
+  zle reset-prompt
+}
+
+# Ctrl-x Ctrl-o にバインド
+zle -N _fzf_git_menu
+bindkey '^x^o' _fzf_git_menu
+
+_fzf_cd_ghq() {
+  FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS} --reverse --height=50%"
+  local root="$(ghq root)"
+  local repo="$(ghq list | fzf --preview="eza --tree --level=2 ${root}/{1}")"
+  local dir="${root}/${repo}"
+  [ -n "${dir}" ] && cd "${dir}"
+  zle accept-line
+  zle reset-prompt
+}
+zle -N _fzf_cd_ghq
+bindkey "^x^g" _fzf_cd_ghq
+
+_edit_buffer() {
+  local tmpfile=$(mktemp)
+  echo "$BUFFER" > $tmpfile
+  nvim $tmpfile -c "normal $" -c "set filetype=zsh"
+  BUFFER="$(bat $tmpfile)"
+  CURSOR=${#BUFFER}
+  rm $tmpfile
+  zle reset-prompt
+}
+zle -N _edit_buffer
+bindkey '^x^e' _edit_buffer
+
+# customize navi widget
+# navi widget zsh
+_navi_call() {
+  local result="$(navi "$@" </dev/tty)"
+  printf "%s" "$result"
+}
+
+_navi_widget() {
+  local -r input="${LBUFFER}"
+  local -r last_command="$(echo "${input}" | navi fn widget::last_command)"
+  local replacement="$last_command"
+
+  if [ -z "$last_command" ]; then
+    replacement="$(_navi_call --print)"
+  elif [ "$LASTWIDGET" = "_navi_widget" ] && [ "$input" = "$previous_output" ]; then
+    replacement="$(_navi_call --print --query "$last_command")"
+  else
+    replacement="$(_navi_call --print --best-match --query "$last_command")"
+  fi
+
+  if [ -n "$replacement" ]; then
+    local -r find="${last_command}_NAVIEND"
+    previous_output="${input}_NAVIEND"
+    previous_output="${previous_output//$find/$replacement}"
+  else
+    previous_output="$input"
+  fi
+
+  zle kill-whole-line
+  LBUFFER="${previous_output}"
+  region_highlight=("P0 100 bold")
+  zle redisplay
+}
+
+zle -N _navi_widget
+bindkey '^x^h' _navi_widget
+# ====== ./functions ======
+
+# ====== base ======
+export PATH=~/.local/bin:$PATH
+export EDITOR=nvim
+# ====== ./base ======
+
+# ====== dev ======
+# fzf
+(( $+commands[fzf] )) && source <(fzf --zsh)
+
+# mise
+(( $+commands[mise] )) && eval "$(mise activate zsh)"
+
+# zoxide
+(( $+commands[zoxide] )) && eval "$(zoxide init zsh --hook pwd)"
+
+# 1password
+[[ -f "$HOME/.1password/agent.sock" ]] && export SSH_AUTH_SOCK="$HOME/.1password/agent.sock"
+[[ -f "$HOME/.config/auth/env" ]] && source "$HOME/.config/auth/env"
+
+# Rust
+# rustup は個別にインストールする
+(( $+commands[rustup] )) && export PATH=$PATH:"$HOME/.cargo/bin" || echo "rustup not found"
+[[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
+
+# Golang
+(( $+commands[go] )) && export PATH=$PATH:~/go/bin
+
+# Python
+# uv は個別にインストールする
+(( $+commands[uv] )) && eval "$(uv generate-shell-completion zsh)" || echo "uv not found"
+
+# poetry
+export PATH=$HOME/.poetry/bin:$PATH
+# https://github.com/python-poetry/poetry/issues/5250
+export PYTHON_KEYRING_BACKEND=keyring.backends.fail.Keyring
+
+# direnv
+if (( $+commands[direnv] )); then
+  eval "$(direnv hook zsh)"
+  direnv reload 2> /dev/null
+fi
+
+# navi
+(( $+commands[navi] )) && export NAVI_PATH='~/.local/share/navi/cheats:~/src/github.com/i1ain2/cheats'
+(( $+commands[navi] )) && eval "$(navi widget zsh)"
+
+# kubectl
+(( $+commands[kubectl] )) && source <(kubectl completion zsh)
+
+# ====== ./dev ======
