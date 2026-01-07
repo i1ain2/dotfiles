@@ -284,8 +284,8 @@ layout {
 // IME
 spawn-at-startup "fcitx5" "-d" "--replace"
 
-// clipboard history
-spawn-at-startup "bash" "-c" "wl-paste --watch cliphist store &"
+// clipboard history (with 1Password filtering)
+spawn-at-startup "bash" "-c" "$HOME/.local/bin/cliphist-filtered.sh"
 
 hotkey-overlay {
     // Uncomment this line to disable the "Important Hotkeys" pop-up at startup.
