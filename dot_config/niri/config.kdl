@@ -382,7 +382,7 @@ binds {
 
     // Security
     Mod+Alt+L hotkey-overlay-title="Lock Screen" {
-        spawn "dms" "ipc" "call" "lock" "lock";
+        spawn-sh "dms ipc call lock lock && sleep 0.5 && niri msg action power-off-monitors";
     }
 
     // Audio Controls
