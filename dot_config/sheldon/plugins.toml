@@ -15,6 +15,9 @@ shell = "zsh"
 [plugins.powerlevel10k]
 github = "romkatv/powerlevel10k"
 
+[plugins.fzf-tab]
+github = "Aloxaf/fzf-tab"
+
 [plugins.syntax-highlighting]
 github = "zdharma/fast-syntax-highlighting"
 
