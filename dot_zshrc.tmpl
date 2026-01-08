@@ -27,6 +27,13 @@ zstyle :compinstall filename '/home/i1ain2/.zshrc'
 autoload -Uz compinit
 compinit
 
+# carapace - shell completion library
+if (( $+commands[carapace] )); then
+  export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense'
+  source <(carapace _carapace)
+  zstyle ':completion:*:git:*' group-order 'main commands' 'alias commands' 'external commands'
+fi
+
 # ====== zsh ======
 # Options
 setopt share_history
@@ -275,10 +282,6 @@ export EDITOR=nvim
 # Golang
 (( $+commands[go] )) && export PATH=$PATH:~/go/bin
 
-# Python
-# uv は個別にインストールする
-(( $+commands[uv] )) && eval "$(uv generate-shell-completion zsh)" || echo "uv not found"
-
 # poetry
 export PATH=$HOME/.poetry/bin:$PATH
 # https://github.com/python-poetry/poetry/issues/5250
@@ -293,8 +296,5 @@ fi
 # navi
 (( $+commands[navi] )) && export NAVI_PATH='~/.local/share/navi/cheats:~/src/github.com/i1ain2/cheats'
 (( $+commands[navi] )) && eval "$(navi widget zsh)"
-
-# kubectl
-(( $+commands[kubectl] )) && source <(kubectl completion zsh)
 
 # ====== ./dev ======

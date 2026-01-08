@@ -120,6 +120,7 @@ packages:
     # ==========================================
     - 'iwgtk'                        # Lightweight WiFi GUI (iwd frontend)
     - 'mise'                         # Polyglot runtime manager
+    - 'carapace-bin'                 # multi-shell multi-command argument complete
 
     # ==========================================
     # Other Applications (AUR)
@@ -134,6 +135,7 @@ packages:
     - 'httpie'                       # User-friendly HTTP client
     - 'mise'                         # Polyglot runtime manager
     - 'navi'                         # Interactive cheatsheet tool
+    - 'carapace'                     # multi-shell multi-command argument complete
 
     brew_cask:
     # ==========================================
