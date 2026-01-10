@@ -45,9 +45,17 @@ package({
 })
 
 package({
-  "echasnovski/mini.files",
+  "stevearc/oil.nvim",
   lazy = false,
-  opts = {}
+  dependencies = { "nvim-tree/nvim-web-devicons" },
+  opts = {
+    view_options = {
+      show_hidden = true,
+    },
+    keymaps = {
+      ["q"] = "actions.close",
+    },
+  },
 })
 
 -- floating terminal

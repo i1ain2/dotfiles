@@ -78,6 +78,7 @@ packages:
     - 'firefox'                      # Web browser
     - 'firefox-i18n-ja'              # Firefox Japanese language pack
     - 'dolphin'                      # KDE file manager
+    - 'yazi'                         # Terminal file manager
 
     # ==========================================
     # Shell

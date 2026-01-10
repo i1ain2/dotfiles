@@ -90,8 +90,8 @@ nmap({
   },
   -- neoclip
   { "<C-y>", cmd("Telescope neoclip"), opts(noremap, silent, "open yank history") },
-  -- mini.files
-  { "<C-m>", cmd("lua MiniFiles.open()"), opts(noremap, silent, "open file explorer") },
+  -- oil.nvim
+  { "<C-m>", cmd("Oil"), opts(noremap, silent, "open file explorer") },
   -- FTerm
   { "<A-i>", '<Cmd>lua require("FTerm").toggle()<CR>', opts(noremap, silent, "toggle terminal") },
   -- lsp
