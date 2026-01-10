@@ -61,6 +61,10 @@ vmap({
   { "k", move_up(), opts(noremap, expr, "Move up") },
   { "<Down>", move_down(), opts(noremap, expr, "Move down") },
   { "<Up>", move_up(), opts(noremap, expr, "Move up") },
+  -- FTerm
+  { "<A-t>", '<Cmd>lua require("FTerm").toggle()<CR>', opts(noremap, silent, "toggle terminal") },
+  -- Sidekick
+  { "<A-a>", function() require("sidekick.cli").toggle({ name = "claude", focus = true }) end, opts(noremap, silent, "Sidekick Toggle Claude") },
 })
 
 -- usage of plugins
@@ -91,9 +95,9 @@ nmap({
   -- neoclip
   { "<C-y>", cmd("Telescope neoclip"), opts(noremap, silent, "open yank history") },
   -- oil.nvim
-  { "<C-m>", cmd("Oil"), opts(noremap, silent, "open file explorer") },
+  { "<leader>e", cmd("Oil"), opts(noremap, silent, "open file explorer") },
   -- FTerm
-  { "<A-i>", '<Cmd>lua require("FTerm").toggle()<CR>', opts(noremap, silent, "toggle terminal") },
+  { "<A-t>", '<Cmd>lua require("FTerm").toggle()<CR>', opts(noremap, silent, "toggle terminal") },
   -- lsp
   { "K", cmd("Lspsaga hover_doc"), opts(noremap, silent, "LSP hover") },
   { "<C-s>f", cmd("Lspsaga lsp_finder"), opts(noremap, silent, "LSP finder") },
@@ -155,6 +159,14 @@ nmap({
   -- git
   { "<leader>db", cmd("DiffviewFileHistory"), opts(noremap, silent, "diff view current branch") },
   { "<leader>df", cmd("DiffviewFileHistory %"), opts(noremap, silent, "diff view current file") },
+  -- Sidekick (AI assistant)
+  { "<leader>aa", function() require("sidekick.cli").toggle() end, opts(noremap, silent, "Sidekick Toggle CLI") },
+  { "<leader>as", function() require("sidekick.cli").select() end, opts(noremap, silent, "Select CLI") },
+  { "<leader>ad", function() require("sidekick.cli").close() end, opts(noremap, silent, "Detach CLI Session") },
+  { "<leader>at", function() require("sidekick.cli").send({ msg = "{this}" }) end, opts(noremap, silent, "Send This") },
+  { "<leader>af", function() require("sidekick.cli").send({ msg = "{file}" }) end, opts(noremap, silent, "Send File") },
+  { "<leader>ap", function() require("sidekick.cli").prompt() end, opts(noremap, silent, "Sidekick Select Prompt") },
+  { "<A-a>", function() require("sidekick.cli").toggle({ name = "claude", focus = true }) end, opts(noremap, silent, "Sidekick Toggle Claude") },
 })
 
 vmap({
@@ -168,6 +180,25 @@ vmap({
 
 tmap({
   -- FTerm
-  { "<A-i>", '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>', opts(noremap, silent) },
+  { "<A-t>", '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>', opts(noremap, silent) },
+  -- Sidekick
+  { "<A-a>", '<C-\\><C-n><CMD>lua require("sidekick.cli").toggle({ name = "claude", focus = true })<CR>', opts(noremap, silent, "Sidekick Toggle Claude") },
 })
--- vim.keymap.set('t', '<A-i>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
+
+imap({
+  -- FTerm
+  { "<A-t>", '<Cmd>lua require("FTerm").toggle()<CR>', opts(noremap, silent, "toggle terminal") },
+  -- Sidekick
+  { "<A-a>", function() require("sidekick.cli").toggle({ name = "claude", focus = true }) end, opts(noremap, silent, "Sidekick Toggle Claude") },
+})
+
+xmap({
+  { "<leader>at", function() require("sidekick.cli").send({ msg = "{this}" }) end, opts(noremap, silent, "Send This") },
+  { "<leader>av", function() require("sidekick.cli").send({ msg = "{selection}" }) end, opts(noremap, silent, "Send Visual Selection") },
+  { "<leader>ap", function() require("sidekick.cli").prompt() end, opts(noremap, silent, "Sidekick Select Prompt") },
+  -- FTerm
+  { "<A-t>", '<Cmd>lua require("FTerm").toggle()<CR>', opts(noremap, silent, "toggle terminal") },
+  -- Sidekick
+  { "<A-a>", function() require("sidekick.cli").toggle({ name = "claude", focus = true }) end, opts(noremap, silent, "Sidekick Toggle Claude") },
+})
+
