@@ -4,15 +4,12 @@ local silent, noremap = keymap.silent, keymap.noremap
 local opts = keymap.new_opts
 local cmd = keymap.cmd
 
--------------------------------------- keymaps ------------------------------------------
--- Use space as leader key
+-------------------------------------- Leader Key ------------------------------------------
 vim.g.mapleader = " "
--- leaderkey
 nmap({ " ", "", opts(noremap) })
 xmap({ " ", "", opts(noremap) })
 
--- Allow moving the cursor through wrapped lines with j, k, <Up> and <Down>
--- https://neovim.discourse.group/t/how-do-i-jump-to-relative-line-number-with-gj-gk/2203
+-------------------------------------- Helper Functions ------------------------------------
 local function move_down()
   return vim.v.count > 0 and "j" or "gj"
 end
@@ -21,55 +18,50 @@ local function move_up()
   return vim.v.count > 0 and "k" or "gk"
 end
 
--- basic usage
+-------------------------------------- Basic Keymaps ---------------------------------------
 nmap({
+  -- Clear highlights
   { "<Esc>", ":noh <CR>", opts(noremap, silent, "Clear highlights") },
-  -- swith btween windows
+  -- Window navigation
   { "<C-h>", "<C-w>h", opts(noremap, "Move Left") },
   { "<C-l>", "<C-w>l", opts(noremap, "Move right") },
   { "<C-j>", "<C-w>j", opts(noremap, "Move down") },
   { "<C-k>", "<C-w>k", opts(noremap, "Move up") },
-  -- save
+  -- Save and quit
   { "<leader>w", cmd("w"), opts(noremap, "Save file") },
   { "<leader>W", cmd("w!"), opts(noremap, "Save file forcibly") },
   { "<leader>q", cmd("q"), opts(noremap, "quit neovim") },
   { "<leader>Q", cmd("q!"), opts(noremap, "quit neovim forcibly") },
-  -- line numbers
+  -- Line numbers
   { "<leader>n", cmd("set nu!"), opts(noremap, silent, "Toggle line number") },
   { "<leader>rn", cmd("set rnu!"), opts(noremap, silent, "Toggle relative number") },
-  -- move
+  -- Cursor movement (wrapped lines)
   { "j", move_down(), opts(noremap, expr, "Move down") },
   { "k", move_up(), opts(noremap, expr, "Move up") },
   { "<Down>", move_down(), opts(noremap, expr, "Move down") },
   { "<Up>", move_up(), opts(noremap, expr, "Move up") },
-  -- buffer
+  -- Buffer navigation
   { "<Tab>", cmd("bnext"), opts(noremap, silent, "Goto next buffer") },
   { "<S-Tab>", cmd("bprev"), opts(noremap, silent, "Goto prev buffer") },
   { "<leader>x", cmd("bdelete"), opts(noremap, silent, "Close buffer") },
-  -- new buffer
   { "<leader>b", cmd("enew"), opts(noremap, silent, "New buffer") },
-  -- quickfix
+  -- Quickfix
   { "[q", cmd("cprevious"), opts(noremap, silent, "previous quickfix") },
   { "]q", cmd("cnext"), opts(noremap, silent, "next quickfix") },
-  { "]Q", cmd("cfirst"), opts(noremap, silent, "first quickfix") },
+  { "[Q", cmd("cfirst"), opts(noremap, silent, "first quickfix") },
   { "]Q", cmd("clast"), opts(noremap, silent, "last quickfix") },
 })
 
 vmap({
-  -- move
+  -- Cursor movement (wrapped lines)
   { "j", move_down(), opts(noremap, expr, "Move down") },
   { "k", move_up(), opts(noremap, expr, "Move up") },
   { "<Down>", move_down(), opts(noremap, expr, "Move down") },
   { "<Up>", move_up(), opts(noremap, expr, "Move up") },
-  -- FTerm
-  { "<A-t>", '<Cmd>lua require("FTerm").toggle()<CR>', opts(noremap, silent, "toggle terminal") },
-  -- Sidekick
-  { "<A-a>", function() require("sidekick.cli").toggle({ name = "claude", focus = true }) end, opts(noremap, silent, "Sidekick Toggle Claude") },
 })
 
--- usage of plugins
+-------------------------------------- Plugin: Comment -------------------------------------
 nmap({
-  -- Comment
   {
     "<leader>/",
     function()
@@ -77,7 +69,18 @@ nmap({
     end,
     opts(noremap, silent, "Toggle comment"),
   },
-  -- telescope
+})
+
+vmap({
+  {
+    "<leader>/",
+    "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>",
+    opts(noremap, silent, "Toggle comment"),
+  },
+})
+
+-------------------------------------- Plugin: Telescope -----------------------------------
+nmap({
   { "<leader>ff", cmd("Telescope find_files theme=ivy"), opts(noremap, silent, "Find files") },
   {
     "<leader>fa",
@@ -94,11 +97,70 @@ nmap({
   },
   -- neoclip
   { "<C-y>", cmd("Telescope neoclip"), opts(noremap, silent, "open yank history") },
-  -- oil.nvim
+})
+
+-------------------------------------- Plugin: oil.nvim ------------------------------------
+nmap({
   { "<leader>e", cmd("Oil"), opts(noremap, silent, "open file explorer") },
-  -- FTerm
+})
+
+-------------------------------------- Plugin: FTerm ---------------------------------------
+nmap({
   { "<A-t>", '<Cmd>lua require("FTerm").toggle()<CR>', opts(noremap, silent, "toggle terminal") },
-  -- lsp
+})
+
+vmap({
+  { "<A-t>", '<Cmd>lua require("FTerm").toggle()<CR>', opts(noremap, silent, "toggle terminal") },
+})
+
+xmap({
+  { "<A-t>", '<Cmd>lua require("FTerm").toggle()<CR>', opts(noremap, silent, "toggle terminal") },
+})
+
+imap({
+  { "<A-t>", '<Cmd>lua require("FTerm").toggle()<CR>', opts(noremap, silent, "toggle terminal") },
+})
+
+tmap({
+  { "<A-t>", '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>', opts(noremap, silent, "toggle terminal") },
+})
+
+-------------------------------------- Plugin: Sidekick (AI Assistant) ---------------------
+local function sidekick_toggle_claude()
+  require("sidekick.cli").toggle({ name = "claude", focus = true })
+end
+
+nmap({
+  { "<leader>aa", function() require("sidekick.cli").toggle() end, opts(noremap, silent, "Sidekick Toggle CLI") },
+  { "<leader>as", function() require("sidekick.cli").select() end, opts(noremap, silent, "Select CLI") },
+  { "<leader>ad", function() require("sidekick.cli").close() end, opts(noremap, silent, "Detach CLI Session") },
+  { "<leader>at", function() require("sidekick.cli").send({ msg = "{this}" }) end, opts(noremap, silent, "Send This") },
+  { "<leader>af", function() require("sidekick.cli").send({ msg = "{file}" }) end, opts(noremap, silent, "Send File") },
+  { "<leader>ap", function() require("sidekick.cli").prompt() end, opts(noremap, silent, "Sidekick Select Prompt") },
+  { "<A-a>", sidekick_toggle_claude, opts(noremap, silent, "Sidekick Toggle Claude") },
+})
+
+vmap({
+  { "<A-a>", sidekick_toggle_claude, opts(noremap, silent, "Sidekick Toggle Claude") },
+})
+
+xmap({
+  { "<leader>at", function() require("sidekick.cli").send({ msg = "{this}" }) end, opts(noremap, silent, "Send This") },
+  { "<leader>av", function() require("sidekick.cli").send({ msg = "{selection}" }) end, opts(noremap, silent, "Send Visual Selection") },
+  { "<leader>ap", function() require("sidekick.cli").prompt() end, opts(noremap, silent, "Sidekick Select Prompt") },
+  { "<A-a>", sidekick_toggle_claude, opts(noremap, silent, "Sidekick Toggle Claude") },
+})
+
+imap({
+  { "<A-a>", sidekick_toggle_claude, opts(noremap, silent, "Sidekick Toggle Claude") },
+})
+
+tmap({
+  { "<A-a>", '<C-\\><C-n><CMD>lua require("sidekick.cli").toggle({ name = "claude", focus = true })<CR>', opts(noremap, silent, "Sidekick Toggle Claude") },
+})
+
+-------------------------------------- Plugin: LSP -----------------------------------------
+nmap({
   { "K", cmd("Lspsaga hover_doc"), opts(noremap, silent, "LSP hover") },
   { "<C-s>f", cmd("Lspsaga lsp_finder"), opts(noremap, silent, "LSP finder") },
   { "<C-s>D", cmd("lua vim.lsp.buf.declaration()"), opts(noremap, silent, "LSP declaration") },
@@ -114,6 +176,10 @@ nmap({
   { "<C-s>e", cmd("lua vim.diagnostic.setloclist()"), opts(noremap, silent, "Diagnostic setloclist") },
   { "[e", cmd("Lspsaga diagnostic_jump_prev"), opts(noremap, silent, "Goto prev diagnostic") },
   { "]e", cmd("Lspsaga diagnostic_jump_next"), opts(noremap, silent, "Goto next diagnostic") },
+})
+
+-------------------------------------- Plugin: Trouble -------------------------------------
+nmap({
   {
     "<leader>xx",
     function()
@@ -156,49 +222,10 @@ nmap({
     end,
     opts(noremap, silent, "toggle lsp references"),
   },
-  -- git
+})
+
+-------------------------------------- Plugin: Diffview ------------------------------------
+nmap({
   { "<leader>db", cmd("DiffviewFileHistory"), opts(noremap, silent, "diff view current branch") },
   { "<leader>df", cmd("DiffviewFileHistory %"), opts(noremap, silent, "diff view current file") },
-  -- Sidekick (AI assistant)
-  { "<leader>aa", function() require("sidekick.cli").toggle() end, opts(noremap, silent, "Sidekick Toggle CLI") },
-  { "<leader>as", function() require("sidekick.cli").select() end, opts(noremap, silent, "Select CLI") },
-  { "<leader>ad", function() require("sidekick.cli").close() end, opts(noremap, silent, "Detach CLI Session") },
-  { "<leader>at", function() require("sidekick.cli").send({ msg = "{this}" }) end, opts(noremap, silent, "Send This") },
-  { "<leader>af", function() require("sidekick.cli").send({ msg = "{file}" }) end, opts(noremap, silent, "Send File") },
-  { "<leader>ap", function() require("sidekick.cli").prompt() end, opts(noremap, silent, "Sidekick Select Prompt") },
-  { "<A-a>", function() require("sidekick.cli").toggle({ name = "claude", focus = true }) end, opts(noremap, silent, "Sidekick Toggle Claude") },
 })
-
-vmap({
-  -- Comment
-  {
-    "<leader>/",
-    "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>",
-    opts(noremap, silent, "Toggle comment"),
-  },
-})
-
-tmap({
-  -- FTerm
-  { "<A-t>", '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>', opts(noremap, silent) },
-  -- Sidekick
-  { "<A-a>", '<C-\\><C-n><CMD>lua require("sidekick.cli").toggle({ name = "claude", focus = true })<CR>', opts(noremap, silent, "Sidekick Toggle Claude") },
-})
-
-imap({
-  -- FTerm
-  { "<A-t>", '<Cmd>lua require("FTerm").toggle()<CR>', opts(noremap, silent, "toggle terminal") },
-  -- Sidekick
-  { "<A-a>", function() require("sidekick.cli").toggle({ name = "claude", focus = true }) end, opts(noremap, silent, "Sidekick Toggle Claude") },
-})
-
-xmap({
-  { "<leader>at", function() require("sidekick.cli").send({ msg = "{this}" }) end, opts(noremap, silent, "Send This") },
-  { "<leader>av", function() require("sidekick.cli").send({ msg = "{selection}" }) end, opts(noremap, silent, "Send Visual Selection") },
-  { "<leader>ap", function() require("sidekick.cli").prompt() end, opts(noremap, silent, "Sidekick Select Prompt") },
-  -- FTerm
-  { "<A-t>", '<Cmd>lua require("FTerm").toggle()<CR>', opts(noremap, silent, "toggle terminal") },
-  -- Sidekick
-  { "<A-a>", function() require("sidekick.cli").toggle({ name = "claude", focus = true }) end, opts(noremap, silent, "Sidekick Toggle Claude") },
-})
-
