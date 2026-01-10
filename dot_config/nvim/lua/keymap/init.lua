@@ -31,7 +31,7 @@ nmap({
   { "<leader>w", cmd("w"), opts(noremap, "Save file") },
   { "<leader>W", cmd("w!"), opts(noremap, "Save file forcibly") },
   { "<leader>q", cmd("q"), opts(noremap, "quit neovim") },
-  { "<leader>Q", cmd("q!"), opts(noremap, "quit neovim forcibly") },
+  { "<leader>Q", cmd("qa"), opts(noremap, "quit all") },
   -- Line numbers
   { "<leader>n", cmd("set nu!"), opts(noremap, silent, "Toggle line number") },
   { "<leader>rn", cmd("set rnu!"), opts(noremap, silent, "Toggle relative number") },
