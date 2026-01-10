@@ -62,3 +62,20 @@ package({
   },
   opts = {},
 })
+
+-- AI assistant with Claude CLI integration
+package({
+  "folke/sidekick.nvim",
+  lazy = false,
+  dependencies = {
+    "folke/snacks.nvim",
+  },
+  opts = {
+    cli = {
+      mux = {
+        backend = "tmux",
+        enabled = true,
+      },
+    },
+  },
+})
