@@ -72,9 +72,8 @@ package({
   },
   opts = {
     cli = {
-      mux = {
-        backend = "tmux",
-        enabled = true,
+      win = {
+        auto_insert = true,
       },
     },
   },
