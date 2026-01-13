@@ -33,8 +33,8 @@ nmap({
   { "<leader>q", cmd("q"), opts(noremap, "quit neovim") },
   { "<leader>Q", cmd("qa"), opts(noremap, "quit all") },
   -- Line numbers
-  { "<leader>n", cmd("set nu!"), opts(noremap, silent, "Toggle line number") },
-  { "<leader>rn", cmd("set rnu!"), opts(noremap, silent, "Toggle relative number") },
+  { "<leader>ln", cmd("set nu!"), opts(noremap, silent, "Toggle line number") },
+  { "<leader>lr", cmd("set rnu!"), opts(noremap, silent, "Toggle relative number") },
   -- Cursor movement (wrapped lines)
   { "j", move_down(), opts(noremap, expr, "Move down") },
   { "k", move_up(), opts(noremap, expr, "Move up") },
@@ -230,12 +230,12 @@ nmap({
   { "<leader>df", cmd("DiffviewFileHistory %"), opts(noremap, silent, "diff view current file") },
 })
 
--------------------------------------- Notes (daily memo) ----------------------------------
+-------------------------------------- Notes ----------------------------------------------
 local notes = require("modules.notes.config")
 nmap({
-  { "<leader>mm", notes.open_today, opts(noremap, silent, "Open today's memo") },
-  { "<leader>mp", notes.open_prev, opts(noremap, silent, "Open previous memo") },
-  { "<leader>mn", notes.open_next, opts(noremap, silent, "Open next memo") },
-  { "<leader>mw", notes.grep_notes, opts(noremap, silent, "Grep memos") },
-  { "<leader>mf", notes.find_notes, opts(noremap, silent, "Find memos") },
+  { "<leader>nn", notes.open_today, opts(noremap, silent, "Open today's note") },
+  { "<leader>n[", notes.open_prev, opts(noremap, silent, "Open previous note") },
+  { "<leader>n]", notes.open_next, opts(noremap, silent, "Open next note") },
+  { "<leader>nw", notes.grep_notes, opts(noremap, silent, "Grep notes") },
+  { "<leader>nf", notes.find_notes, opts(noremap, silent, "Find notes") },
 })

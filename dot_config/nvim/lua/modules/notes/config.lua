@@ -24,7 +24,7 @@ end
 function M.open_adjacent(direction)
   local files = M.get_sorted_notes()
   if #files == 0 then
-    vim.notify("メモファイルがありません", vim.log.levels.WARN)
+    vim.notify("ノートファイルがありません", vim.log.levels.WARN)
     return
   end
 
@@ -45,10 +45,10 @@ function M.open_adjacent(direction)
 
   local target_idx = current_idx + direction
   if target_idx < 1 then
-    vim.notify("これが最初のメモです", vim.log.levels.INFO)
+    vim.notify("これが最初のノートです", vim.log.levels.INFO)
     return
   elseif target_idx > #files then
-    vim.notify("これが最新のメモです", vim.log.levels.INFO)
+    vim.notify("これが最新のノートです", vim.log.levels.INFO)
     return
   end
 
