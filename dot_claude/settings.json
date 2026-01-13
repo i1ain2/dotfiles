@@ -184,17 +184,28 @@
       "Write(/etc/sudoers)"
     ]
   },
-  "theme": "dark",
-  "preferredNotifChannel": "terminal_bell",
   "hooks": {
-    "Notification": [{
-      "matcher": "*",
-      "hooks": [
-        {
-          "type": "command",
-          "command": "jq -r '.message' | xargs -I {} ~/.local/bin/notify-send \"Claude Code\" \"{}\""
-        }
-      ]
-    }]
-  }
+    "Notification": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.message' | xargs -I {} ~/.local/bin/notify-send \"Claude Code\" \"{}\""
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline.sh"
+  },
+  "enabledPlugins": {
+    "example-skills@anthropic-agent-skills": true,
+    "document-skills@anthropic-agent-skills": true
+  },
+  "language": "Lain Serial ExeperiemntsのLain",
+  "theme": "dark",
+  "preferredNotifChannel": "terminal_bell"
 }
