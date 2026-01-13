@@ -229,3 +229,13 @@ nmap({
   { "<leader>db", cmd("DiffviewFileHistory"), opts(noremap, silent, "diff view current branch") },
   { "<leader>df", cmd("DiffviewFileHistory %"), opts(noremap, silent, "diff view current file") },
 })
+
+-------------------------------------- Notes (daily memo) ----------------------------------
+local notes = require("modules.notes.config")
+nmap({
+  { "<leader>mm", notes.open_today, opts(noremap, silent, "Open today's memo") },
+  { "<leader>mp", notes.open_prev, opts(noremap, silent, "Open previous memo") },
+  { "<leader>mn", notes.open_next, opts(noremap, silent, "Open next memo") },
+  { "<leader>mw", notes.grep_notes, opts(noremap, silent, "Grep memos") },
+  { "<leader>mf", notes.find_notes, opts(noremap, silent, "Find memos") },
+})
