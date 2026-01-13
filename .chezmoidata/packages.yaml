@@ -181,7 +181,7 @@ packages:
     - '1password'                    # Password manager
     - 'dropbox'                      # Cloud storage & sync
     - 'tailscale'                    # Mesh VPN
-    - 'rectangle'                    # Window management
+    - 'nikitabobko/tap/aerospace'    # Tiling window manager
 
     manual:
     # ==========================================
