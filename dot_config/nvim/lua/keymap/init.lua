@@ -106,23 +106,23 @@ nmap({
 
 -------------------------------------- Plugin: FTerm ---------------------------------------
 nmap({
-  { "<A-t>", '<Cmd>lua require("FTerm").toggle()<CR>', opts(noremap, silent, "toggle terminal") },
+  { "<C-\\><C-t>", '<Cmd>lua require("FTerm").toggle()<CR>', opts(noremap, silent, "toggle terminal") },
 })
 
 vmap({
-  { "<A-t>", '<Cmd>lua require("FTerm").toggle()<CR>', opts(noremap, silent, "toggle terminal") },
+  { "<C-\\><C-t>", '<Cmd>lua require("FTerm").toggle()<CR>', opts(noremap, silent, "toggle terminal") },
 })
 
 xmap({
-  { "<A-t>", '<Cmd>lua require("FTerm").toggle()<CR>', opts(noremap, silent, "toggle terminal") },
+  { "<C-\\><C-t>", '<Cmd>lua require("FTerm").toggle()<CR>', opts(noremap, silent, "toggle terminal") },
 })
 
 imap({
-  { "<A-t>", '<Cmd>lua require("FTerm").toggle()<CR>', opts(noremap, silent, "toggle terminal") },
+  { "<C-\\><C-t>", '<Cmd>lua require("FTerm").toggle()<CR>', opts(noremap, silent, "toggle terminal") },
 })
 
 tmap({
-  { "<A-t>", '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>', opts(noremap, silent, "toggle terminal") },
+  { "<C-\\><C-t>", '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>', opts(noremap, silent, "toggle terminal") },
 })
 
 -------------------------------------- Plugin: Sidekick (AI Assistant) ---------------------
@@ -137,26 +137,26 @@ nmap({
   { "<leader>at", function() require("sidekick.cli").send({ msg = "{this}" }) end, opts(noremap, silent, "Send This") },
   { "<leader>af", function() require("sidekick.cli").send({ msg = "{file}" }) end, opts(noremap, silent, "Send File") },
   { "<leader>ap", function() require("sidekick.cli").prompt() end, opts(noremap, silent, "Sidekick Select Prompt") },
-  { "<A-a>", sidekick_toggle_claude, opts(noremap, silent, "Sidekick Toggle Claude") },
+  { "<C-\\><C-a>", sidekick_toggle_claude, opts(noremap, silent, "Sidekick Toggle Claude") },
 })
 
 vmap({
-  { "<A-a>", sidekick_toggle_claude, opts(noremap, silent, "Sidekick Toggle Claude") },
+  { "<C-\\><C-a>", sidekick_toggle_claude, opts(noremap, silent, "Sidekick Toggle Claude") },
 })
 
 xmap({
   { "<leader>at", function() require("sidekick.cli").send({ msg = "{this}" }) end, opts(noremap, silent, "Send This") },
   { "<leader>av", function() require("sidekick.cli").send({ msg = "{selection}" }) end, opts(noremap, silent, "Send Visual Selection") },
   { "<leader>ap", function() require("sidekick.cli").prompt() end, opts(noremap, silent, "Sidekick Select Prompt") },
-  { "<A-a>", sidekick_toggle_claude, opts(noremap, silent, "Sidekick Toggle Claude") },
+  { "<C-\\><C-a>", sidekick_toggle_claude, opts(noremap, silent, "Sidekick Toggle Claude") },
 })
 
 imap({
-  { "<A-a>", sidekick_toggle_claude, opts(noremap, silent, "Sidekick Toggle Claude") },
+  { "<C-\\><C-a>", sidekick_toggle_claude, opts(noremap, silent, "Sidekick Toggle Claude") },
 })
 
 tmap({
-  { "<A-a>", '<C-\\><C-n><CMD>lua require("sidekick.cli").toggle({ name = "claude", focus = true })<CR>', opts(noremap, silent, "Sidekick Toggle Claude") },
+  { "<C-\\><C-a>", '<C-\\><C-n><CMD>lua require("sidekick.cli").toggle({ name = "claude", focus = true })<CR>', opts(noremap, silent, "Sidekick Toggle Claude") },
 })
 
 -------------------------------------- Plugin: LSP -----------------------------------------
