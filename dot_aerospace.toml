@@ -10,7 +10,7 @@ config-version = 2
 after-startup-command = []
 
 # Start AeroSpace at login
-start-at-login = false
+start-at-login = true
 
 # Normalizations. See: https://nikitabobko.github.io/AeroSpace/guide#normalization
 enable-normalization-flatten-containers = true
@@ -113,10 +113,10 @@ on-mode-changed = []
     alt-comma = 'layout accordion horizontal vertical'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#focus
-    alt-h = 'focus left'
-    alt-j = 'focus down'
-    alt-k = 'focus up'
-    alt-l = 'focus right'
+    alt-h = 'focus --ignore-floating left'
+    alt-j = 'focus --ignore-floating down'
+    alt-k = 'focus --ignore-floating up'
+    alt-l = 'focus --ignore-floating right'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#move
     alt-shift-h = 'move left'
@@ -217,3 +217,11 @@ on-mode-changed = []
     alt-shift-j = ['join-with down', 'mode main']
     alt-shift-k = ['join-with up', 'mode main']
     alt-shift-l = ['join-with right', 'mode main']
+
+[[on-window-detected]]
+if.app-id = "com.apple.finder"
+run = "layout floating"
+
+[[on-window-detected]]
+if.app-id = "com.1password.1password"
+run = "layout floating"
