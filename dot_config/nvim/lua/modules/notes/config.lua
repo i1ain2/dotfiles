@@ -102,6 +102,24 @@ function M.toggle_checkbox()
   vim.api.nvim_set_current_line(new_line)
 end
 
+function M.sync()
+  local notes_repo = vim.fn.fnamemodify(M.opts.notes_dir, ":h")
+  local cmd = string.format(
+    "cd %s && git add -A && git commit -m 'sync notes' && git push",
+    vim.fn.shellescape(notes_repo)
+  )
+
+  vim.fn.jobstart(cmd, {
+    on_exit = function(_, code)
+      if code == 0 then
+        vim.notify("Notes synced", vim.log.levels.INFO)
+      else
+        vim.notify("Notes sync failed", vim.log.levels.WARN)
+      end
+    end,
+  })
+end
+
 function M.setup()
   -- Register user commands for optional use
   vim.api.nvim_create_user_command("NotesToday", M.open_today, {})
@@ -110,6 +128,7 @@ function M.setup()
   vim.api.nvim_create_user_command("NotesGrep", M.grep_notes, {})
   vim.api.nvim_create_user_command("NotesFind", M.find_notes, {})
   vim.api.nvim_create_user_command("NotesTodo", M.grep_todos, {})
+  vim.api.nvim_create_user_command("NotesSync", M.sync, {})
 end
 
 return M

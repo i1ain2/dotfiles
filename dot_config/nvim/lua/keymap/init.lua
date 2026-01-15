@@ -240,4 +240,5 @@ nmap({
   { "<leader>nf", notes.find_notes, opts(noremap, silent, "Find notes") },
   { "<leader>nt", notes.grep_todos, opts(noremap, silent, "Find TODOs") },
   { "<leader>nc", notes.toggle_checkbox, opts(noremap, silent, "Toggle checkbox") },
+  { "<leader>ns", notes.sync, opts(noremap, silent, "Sync notes to git") },
 })
