@@ -77,6 +77,31 @@ function M.find_notes()
   })
 end
 
+function M.grep_todos()
+  require("telescope.builtin").live_grep({
+    cwd = M.opts.notes_dir,
+    default_text = "- \\[ \\]",
+    prompt_title = "Find TODOs",
+  })
+end
+
+function M.toggle_checkbox()
+  local line = vim.api.nvim_get_current_line()
+  local new_line
+
+  if line:match("%- %[ %]") then
+    new_line = line:gsub("%- %[ %]", "- [x]", 1)
+  elseif line:match("%- %[x%]") then
+    new_line = line:gsub("%- %[x%]", "- [ ]", 1)
+  elseif line:match("%- %[X%]") then
+    new_line = line:gsub("%- %[X%]", "- [ ]", 1)
+  else
+    return
+  end
+
+  vim.api.nvim_set_current_line(new_line)
+end
+
 function M.setup()
   -- Register user commands for optional use
   vim.api.nvim_create_user_command("NotesToday", M.open_today, {})
@@ -84,6 +109,7 @@ function M.setup()
   vim.api.nvim_create_user_command("NotesNext", M.open_next, {})
   vim.api.nvim_create_user_command("NotesGrep", M.grep_notes, {})
   vim.api.nvim_create_user_command("NotesFind", M.find_notes, {})
+  vim.api.nvim_create_user_command("NotesTodo", M.grep_todos, {})
 end
 
 return M

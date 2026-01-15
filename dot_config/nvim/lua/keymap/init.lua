@@ -238,4 +238,6 @@ nmap({
   { "<leader>n]", notes.open_next, opts(noremap, silent, "Open next note") },
   { "<leader>nw", notes.grep_notes, opts(noremap, silent, "Grep notes") },
   { "<leader>nf", notes.find_notes, opts(noremap, silent, "Find notes") },
+  { "<leader>nt", notes.grep_todos, opts(noremap, silent, "Find TODOs") },
+  { "<leader>nc", notes.toggle_checkbox, opts(noremap, silent, "Toggle checkbox") },
 })
