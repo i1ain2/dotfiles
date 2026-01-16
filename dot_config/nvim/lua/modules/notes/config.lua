@@ -105,7 +105,7 @@ end
 function M.sync()
   local notes_repo = vim.fn.fnamemodify(M.opts.notes_dir, ":h")
   local cmd = string.format(
-    "cd %s && git add -A && git commit -m 'sync notes' && git push",
+    "cd %s && git pull && git add -A && git commit -m 'sync notes'; git push",
     vim.fn.shellescape(notes_repo)
   )
 
