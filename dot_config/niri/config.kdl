@@ -3,12 +3,6 @@
 // Check the wiki for a full description of the configuration:
 // https://yalter.github.io/niri/Configuration:-Introduction
 
-// Dank Material Shell integrations
-include "dms/colors.kdl"
-include "dms/layout.kdl"
-include "dms/alttab.kdl"
-include "dms/wpblur.kdl"
-
 environment {
   QT_QPA_PLATFORM "wayland"
   QT_QPA_PLATFORMTHEME "gtk3"
@@ -285,6 +279,7 @@ layout {
 spawn-at-startup "fcitx5" "-d" "--replace"
 
 // clipboard history (with 1Password filtering)
+// TODO:
 spawn-at-startup "bash" "-c" "$HOME/.local/bin/cliphist-filtered.sh"
 
 hotkey-overlay {
@@ -356,53 +351,57 @@ binds {
 
     // Application Launcher
     Mod+T hotkey-overlay-title="Open a Terminal: ghostty" { spawn "ghostty"; }
-    Mod+Space hotkey-overlay-title="Application Launcher" {
-        spawn "dms" "ipc" "call" "spotlight" "toggle";
-    }
-    Mod+Ctrl+V hotkey-overlay-title="Clipboard Manager" {
-        spawn "dms" "ipc" "call" "clipboard" "toggle";
-    }
-    Mod+M hotkey-overlay-title="Task Manager" {
-        spawn "dms" "ipc" "call" "processlist" "focusOrToggle";
-    }
-    Mod+N hotkey-overlay-title="Notification Center" {
-        spawn "dms" "ipc" "call" "notifications" "toggle";
-    }
+    // TODO: implement
+    // Mod+Space hotkey-overlay-title="Application Launcher" {
+    //     spawn "dms" "ipc" "call" "spotlight" "toggle";
+    // }
+    // Mod+Ctrl+V hotkey-overlay-title="Clipboard Manager" {
+    //     spawn "dms" "ipc" "call" "clipboard" "toggle";
+    // }
+    // Mod+M hotkey-overlay-title="Task Manager" {
+    //     spawn "dms" "ipc" "call" "processlist" "focusOrToggle";
+    // }
+    // Mod+N hotkey-overlay-title="Notification Center" {
+    //     spawn "dms" "ipc" "call" "notifications" "toggle";
+    // }
 
     // Screenshot
-    Alt+Shift+4 hotkey-overlay-title="Screenshot Selection" {
-        spawn-sh "dms screenshot";
-    }
-    Alt+Shift+3 hotkey-overlay-title="Screenshot Fullscreen" {
-        spawn-sh "dms screenshot all";
-    }
+    // TODO: implement
+    // Alt+Shift+4 hotkey-overlay-title="Screenshot Selection" {
+    //     spawn-sh "dms screenshot";
+    // }
+    // Alt+Shift+3 hotkey-overlay-title="Screenshot Fullscreen" {
+    //     spawn-sh "dms screenshot all";
+    // }
     Mod+Shift+W hotkey-overlay-title="Editt Clipboard Image" {
         spawn-sh "wl-paste | satty --filename -";
     }
 
     // Security
-    Mod+Alt+L hotkey-overlay-title="Lock Screen" {
-        spawn-sh "dms ipc call lock lock && sleep 0.5 && niri msg action power-off-monitors";
-    }
+    // TODO: implement
+    // Mod+Alt+L hotkey-overlay-title="Lock Screen" {
+    //     spawn-sh "dms ipc call lock lock && sleep 0.5 && niri msg action power-off-monitors";
+    // }
 
     // Audio Controls
-    XF86AudioRaiseVolume allow-when-locked=true {
-        spawn "dms" "ipc" "call" "audio" "increment" "3";
-    }
-    XF86AudioLowerVolume allow-when-locked=true {
-        spawn "dms" "ipc" "call" "audio" "decrement" "3";
-    }
-    XF86AudioMute allow-when-locked=true {
-        spawn "dms" "ipc" "call" "audio" "mute";
-    }
+    // TODO: implement
+    // XF86AudioRaiseVolume allow-when-locked=true {
+    //     spawn "dms" "ipc" "call" "audio" "increment" "3";
+    // }
+    // XF86AudioLowerVolume allow-when-locked=true {
+    //     spawn "dms" "ipc" "call" "audio" "decrement" "3";
+    // }
+    // XF86AudioMute allow-when-locked=true {
+    //     spawn "dms" "ipc" "call" "audio" "mute";
+    // }
 
-    // Brightness Controls
-    XF86MonBrightnessUp allow-when-locked=true {
-       spawn "dms" "ipc" "call" "brightness" "increment" "5" "";
-    }
-    XF86MonBrightnessDown allow-when-locked=true {
-       spawn "dms" "ipc" "call" "brightness" "decrement" "5" "";
-    }
+    // // Brightness Controls
+    // XF86MonBrightnessUp allow-when-locked=true {
+    //    spawn "dms" "ipc" "call" "brightness" "increment" "5" "";
+    // }
+    // XF86MonBrightnessDown allow-when-locked=true {
+    //    spawn "dms" "ipc" "call" "brightness" "decrement" "5" "";
+    // }
 
     // Open/close the Overview: a zoomed-out view of workspaces and windows.
     // You can also move the mouse into the top-left hot corner,
