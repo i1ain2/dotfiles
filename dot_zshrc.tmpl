@@ -27,13 +27,6 @@ zstyle :compinstall filename '/home/i1ain2/.zshrc'
 autoload -Uz compinit
 compinit
 
-# carapace - shell completion library
-if (( $+commands[carapace] )); then
-  export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense'
-  source <(carapace _carapace)
-  zstyle ':completion:*:git:*' group-order 'main commands' 'alias commands' 'external commands'
-fi
-
 # ====== zsh ======
 # Options
 setopt share_history

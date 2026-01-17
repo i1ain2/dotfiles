@@ -11,7 +11,6 @@ packages:
     # Window Manager & Display System
     # ==========================================
     - 'wayland'                      # Wayland compositor protocol
-    - 'niri'                         # Scrollable-tiling Wayland compositor
     - 'xwayland-satellite'           # Xwayland outside Wayland compositor
     - 'xdg-desktop-portal-gnome'     # GNOME desktop portal for screen sharing
     - 'xdg-desktop-portal-gtk'       # GTK implementation of desktop portal
@@ -49,14 +48,10 @@ packages:
     # ==========================================
     # GUI Shell Components (Dank Material Shell)
     # ==========================================
-    - 'quickshell'                   # Qt-based shell component framework
-    - 'cava'                         # Console audio visualizer
     - 'mako'                         # Lightweight Wayland notification daemon
     - 'wl-clipboard'                 # Wayland clipboard utilities (wl-copy/wl-paste)
     - 'cliphist'                     # Clipboard history manager
     - 'satty'                        # Screenshot annotation tool
-    - 'dgop'                         # TUI system resource monitor
-    - 'matugen'                      # Material Design 3 color scheme generator
     - 'qt6-multimedia'               # Qt6 multimedia library (audio/camera/video)
 
     # ==========================================
@@ -85,7 +80,6 @@ packages:
     # ==========================================
     - 'firefox'                      # Web browser
     - 'firefox-i18n-ja'              # Firefox Japanese language pack
-    - 'dolphin'                      # KDE file manager
     - 'yazi'                         # Terminal file manager
 
     # ==========================================
@@ -120,11 +114,6 @@ packages:
     - 'wlopm'                        # Wayland output power management
 
     # ==========================================
-    # GUI Shell (AUR)
-    # ==========================================
-    - 'dms-shell-bin'                # Dank Material Shell (binary)
-
-    # ==========================================
     # Fonts (AUR)
     # ==========================================
     - 'ttf-hackgen'                  # HackGen programming font
@@ -135,7 +124,7 @@ packages:
     - 'iwgtk'                        # Lightweight WiFi GUI (iwd frontend)
     - 'lswt'                         # List Wayland windows (app-id, title, pid)
     - 'mise'                         # Polyglot runtime manager
-    - 'carapace-bin'                 # multi-shell multi-command argument complete
+    - 'elephant-gapplication'           # Wayland clipboard manager
     - 'elephant-clipboard'           # Wayland clipboard manager
 
     # ==========================================
@@ -151,7 +140,6 @@ packages:
     - 'httpie'                       # User-friendly HTTP client
     - 'mise'                         # Polyglot runtime manager
     - 'navi'                         # Interactive cheatsheet tool
-    - 'carapace'                     # multi-shell multi-command argument complete
     - 'glow'                         # Terminal Markdown renderer
 
     brew_cask:
