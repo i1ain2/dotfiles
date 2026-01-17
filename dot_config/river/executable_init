@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 # River Window Manager Configuration
-# Migrated from niri configuration
 
 # === Environment Variables ===
 export QT_QPA_PLATFORM=wayland
@@ -9,83 +8,62 @@ export QT_QPA_PLATFORMTHEME=gtk3
 export ELECTRON_OZONE_PLATFORM_HINT=auto
 
 # === Input Configuration ===
-# Keyboard layout with ctrl:nocaps (like niri)
+# Keyboard layout with ctrl:nocaps
 riverctl keyboard-layout -options "ctrl:nocaps" us
 
 # Keyboard repeat rate
 riverctl set-repeat 50 300
 
-# Touchpad settings (matching niri)
-riverctl input '*' tap enabled
-riverctl input '*' natural-scroll disabled
-
-# Focus follows cursor disabled (like sway)
-riverctl focus-follows-cursor disabled
-
 # === Modifier Key ===
 mod="Super"
 
 # === Application Launchers ===
-# Terminal (Mod+T like niri)
-riverctl map normal $mod T spawn ghostty
-
 # Application launcher
 riverctl map normal $mod Space spawn 'fcitx5-remote -c && walker'
 
 # === Window Management ===
-# Close window (Mod+Q like niri)
-riverctl map normal $mod Q close
+# Close window
+riverctl map normal $mod+Shift C close
 
-# Toggle fullscreen (Mod+Shift+F like niri)
-riverctl map normal $mod+Shift F toggle-fullscreen
+# Toggle fullscreen
+riverctl map normal $mod F toggle-fullscreen
 
 # Toggle float (Mod+V like niri)
 riverctl map normal $mod V toggle-float
 
-# === Focus Navigation (vim-style like niri) ===
-riverctl map normal $mod H focus-view left
-riverctl map normal $mod J focus-view down
-riverctl map normal $mod K focus-view up
-riverctl map normal $mod L focus-view right
+# === Focus Navigation ===
+riverctl map normal $mod J focus-view next
+riverctl map normal $mod K focus-view previous
 
 # Arrow key alternatives
-riverctl map normal $mod Left focus-view left
-riverctl map normal $mod Down focus-view down
-riverctl map normal $mod Up focus-view up
-riverctl map normal $mod Right focus-view right
+riverctl map normal $mod Down focus-view next
+riverctl map normal $mod Up focus-view previous
 
-# === Window Movement (Mod+Shift like niri) ===
-riverctl map normal $mod+Shift H swap left
-riverctl map normal $mod+Shift J swap down
-riverctl map normal $mod+Shift K swap up
-riverctl map normal $mod+Shift L swap right
+# === Window Movement ===
+riverctl map normal $mod+Shift J swap next
+riverctl map normal $mod+Shift K swap previous
 
 # Arrow key alternatives
-riverctl map normal $mod+Shift Left swap left
-riverctl map normal $mod+Shift Down swap down
-riverctl map normal $mod+Shift Up swap up
-riverctl map normal $mod+Shift Right swap right
+riverctl map normal $mod+Shift Down swap next
+riverctl map normal $mod+Shift Up swap previous
 
 # Zoom/bump to top
 riverctl map normal $mod Return zoom
 
 # === Layout Control (rivercarro) ===
-# Maximize column (Mod+F like niri's maximize-column)
-riverctl map normal $mod F send-layout-cmd rivercarro "main-location monocle"
-
-# Layout direction (like niri's layout switching)
+# Layout direction
 riverctl map normal $mod+Control Up send-layout-cmd rivercarro "main-location top"
 riverctl map normal $mod+Control Right send-layout-cmd rivercarro "main-location right"
 riverctl map normal $mod+Control Down send-layout-cmd rivercarro "main-location bottom"
 riverctl map normal $mod+Control Left send-layout-cmd rivercarro "main-location left"
 
-# Main ratio adjustment (like niri's set-column-width)
-riverctl map normal $mod Minus send-layout-cmd rivercarro "main-ratio -0.05"
-riverctl map normal $mod Equal send-layout-cmd rivercarro "main-ratio +0.05"
+# Main ratio adjustment
+riverctl map normal $mod H send-layout-cmd rivercarro "main-ratio -0.05"
+riverctl map normal $mod L send-layout-cmd rivercarro "main-ratio +0.05"
 
 # Main count adjustment
-riverctl map normal $mod+Alt H send-layout-cmd rivercarro "main-count +1"
-riverctl map normal $mod+Alt L send-layout-cmd rivercarro "main-count -1"
+riverctl map normal $mod+Shift H send-layout-cmd rivercarro "main-count +1"
+riverctl map normal $mod+Shift L send-layout-cmd rivercarro "main-count -1"
 
 # Gap adjustment
 riverctl map normal $mod+Alt Minus send-layout-cmd rivercarro "inner-gaps -2"
@@ -95,10 +73,10 @@ riverctl map normal $mod+Alt Equal send-layout-cmd rivercarro "inner-gaps +2"
 for i in $(seq 1 9); do
     tags=$((1 << (i - 1)))
 
-    # Mod+[1-9] to focus tag (like niri's focus-workspace)
+    # Mod+[1-9] to focus tag
     riverctl map normal $mod "$i" set-focused-tags $tags
 
-    # Mod+Shift+[1-9] to move window to tag (like niri's move-column-to-workspace)
+    # Mod+Shift+[1-9] to move window to tag
     riverctl map normal $mod+Shift "$i" set-view-tags $tags
 
     # Mod+Control+[1-9] to toggle tag visibility
@@ -113,7 +91,7 @@ all_tags=$(((1 << 32) - 1))
 riverctl map normal $mod 0 set-focused-tags $all_tags
 riverctl map normal $mod+Shift 0 set-view-tags $all_tags
 
-# Previous/Next workspace (like niri's focus-workspace-up/down)
+# Previous/Next tag
 riverctl map normal $mod U set-focused-tags $((1 << 0))
 riverctl map normal $mod I set-focused-tags $((1 << 1))
 riverctl map normal $mod Page_Down spawn 'riverctl set-focused-tags $(($(riverctl get-focused-tags) << 1))'
@@ -136,7 +114,7 @@ riverctl map normal $mod+Alt+Control K snap up
 riverctl map normal $mod+Alt+Control L snap right
 
 # === Session Management ===
-# Exit river (Mod+Shift+E like niri)
+# Exit river
 riverctl map normal $mod+Shift E exit
 
 # Lock screen
@@ -175,16 +153,24 @@ riverctl map normal $mod F11 enter-mode passthrough
 riverctl map passthrough $mod F11 enter-mode normal
 
 # === Appearance ===
-# Border settings (matching niri focus-ring colors)
-riverctl border-width 4
-riverctl border-color-focused 0x7fc8ff
-riverctl border-color-unfocused 0x505050
+# Border settings
+riverctl border-width 2
+riverctl border-color-focused 0x93a1a1
+riverctl border-color-unfocused 0x586e75
 
 # Background color
 riverctl background-color 0x1a1b26
 
 # === Window Rules ===
-# Firefox Picture-in-Picture (like niri)
+# App → Tag assignments
+riverctl rule-add -app-id 'ghostty' tags $((1 << 0))           # Tag 1
+riverctl rule-add -app-id 'firefox' tags $((1 << 1))           # Tag 2
+riverctl rule-add -app-id 'google-chrome' tags $((1 << 2))     # Tag 3
+riverctl rule-add -app-id 'steam' tags $((1 << 6))     # Tag 7
+riverctl rule-add -app-id 'discord' tags $((1 << 7))     # Tag 8
+riverctl rule-add -app-id '1password' tags $((1 << 8))     # Tag 9
+
+# Firefox Picture-in-Picture
 riverctl rule-add -app-id 'firefox' -title 'Picture-in-Picture' float
 riverctl rule-add -app-id 'org.mozilla.firefox' -title 'Picture-in-Picture' float
 
@@ -196,6 +182,9 @@ riverctl rule-add -title 'Save File' float
 riverctl rule-add -app-id 'blueman-manager' float
 riverctl rule-add -app-id 'org.twosheds.iwgtk' float
 
+# Float
+riverctl rule-add -app-id '1password' float
+
 # === Autostart ===
 # Idle management and auto-lock (with display power off like sway)
 swayidle -w \
@@ -203,10 +192,10 @@ swayidle -w \
     timeout 7200 'wlopm --off \*' resume 'wlopm --on \*' \
     before-sleep 'swaylock -f -c 000000' &
 
-# IME (like niri's spawn-at-startup)
+# IME
 fcitx5 -d --replace &
 
-# Clipboard history (like niri's spawn-at-startup)
+# Clipboard history
 "$HOME/.local/bin/cliphist-filtered.sh" &
 
 # Status bar
@@ -226,9 +215,6 @@ fi
 
 # === Layout Generator ===
 # Set default layout and start rivercarro
-# -inner-gaps 6: matches niri's gaps 16 (approximately)
-# -outer-gaps 6: outer padding
-# -smart-gaps: no gaps when only one window
 riverctl default-layout rivercarro
 riverctl default-attach-mode bottom
-rivercarro -inner-gaps 8 -outer-gaps 8 &
+rivercarro -inner-gaps 6 -outer-gaps 6 &
