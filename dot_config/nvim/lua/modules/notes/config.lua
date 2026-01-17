@@ -1,13 +1,14 @@
 local M = {}
 
 M.opts = {
-  notes_dir = vim.fn.expand("~/src/github.com/i1ain2/notes/notes"),
+  notes_repo = vim.fn.expand("~/src/github.com/i1ain2/notes"),
+  daily_note_dir = vim.fn.expand("~/src/github.com/i1ain2/notes/notes"),
   date_format = "%Y%m%d",
   extension = ".md",
 }
 
 function M.get_sorted_notes()
-  local pattern = M.opts.notes_dir .. "/*" .. M.opts.extension
+  local pattern = M.opts.daily_note_dir .. "/*" .. M.opts.extension
   local files = vim.fn.glob(pattern, false, true)
   table.sort(files)
   return files
@@ -15,9 +16,9 @@ end
 
 function M.open_today()
   local filename = os.date(M.opts.date_format) .. M.opts.extension
-  local filepath = M.opts.notes_dir .. "/" .. filename
+  local filepath = M.opts.daily_note_dir .. "/" .. filename
 
-  vim.fn.mkdir(M.opts.notes_dir, "p")
+  vim.fn.mkdir(M.opts.daily_note_dir, "p")
   vim.cmd("edit " .. filepath)
 end
 
@@ -79,7 +80,7 @@ end
 
 function M.grep_todos()
   require("telescope.builtin").live_grep({
-    cwd = M.opts.notes_dir,
+    cwd = M.opts.daily_note_dir,
     default_text = "- \\[ \\]",
     prompt_title = "Find TODOs",
   })
