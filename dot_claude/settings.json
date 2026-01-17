@@ -5,7 +5,6 @@
     "DISABLE_COST_WARNINGS": "0",
     "BASH_DEFAULT_TIMEOUT_MS": "300000",
     "BASH_MAX_TIMEOUT_MS": "600000",
-    "MAX_THINKING_TOKENS": "100000",
     "SHELL": "/bin/zsh",
     "UV_CACHE_DIR": "~/.cache/uv",
     "UV_PYTHON_PREFERENCE": "managed",
