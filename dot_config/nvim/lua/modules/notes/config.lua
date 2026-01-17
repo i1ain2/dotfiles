@@ -104,18 +104,30 @@ function M.toggle_checkbox()
 end
 
 function M.sync()
-  local notes_root = vim.fn.fnamemodify(M.opts.notes_dir, ":h")
+  local notes_root = M.opts.notes_root
   local cmd = string.format(
     "cd %s && git pull && git add -A && git commit -m 'sync notes'; git push",
     vim.fn.shellescape(notes_root)
   )
 
+  -- 開始通知（IDを保存して後で更新）
+  local notify_id = vim.notify("ノート同期中...", vim.log.levels.INFO, {
+    title = "Notes",
+    timeout = false,  -- 自動で消えない
+  })
+
   vim.fn.jobstart(cmd, {
     on_exit = function(_, code)
       if code == 0 then
-        vim.notify("Notes synced", vim.log.levels.INFO)
+        vim.notify("ノート同期完了", vim.log.levels.INFO, {
+          title = "Notes",
+          replace = notify_id,
+        })
       else
-        vim.notify("Notes sync failed", vim.log.levels.WARN)
+        vim.notify("ノート同期失敗", vim.log.levels.ERROR, {
+          title = "Notes",
+          replace = notify_id,
+        })
       end
     end,
   })

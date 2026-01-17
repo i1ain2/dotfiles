@@ -50,3 +50,18 @@ package({
   lazy = false,
   opts = {}
 })
+
+-- notification system
+package({
+  'rcarriga/nvim-notify',
+  lazy = false,
+  config = function()
+    local notify = require('notify')
+    notify.setup({
+      stages = 'fade_in_slide_out',
+      timeout = 3000,
+      render = 'compact',
+    })
+    vim.notify = notify
+  end,
+})
