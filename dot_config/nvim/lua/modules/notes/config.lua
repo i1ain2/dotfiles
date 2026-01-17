@@ -1,7 +1,7 @@
 local M = {}
 
 M.opts = {
-  notes_repo = vim.fn.expand("~/src/github.com/i1ain2/notes"),
+  notes_root = vim.fn.expand("~/src/github.com/i1ain2/notes"),
   daily_note_dir = vim.fn.expand("~/src/github.com/i1ain2/notes/notes"),
   date_format = "%Y%m%d",
   extension = ".md",
@@ -66,14 +66,14 @@ end
 
 function M.grep_notes()
   require("telescope.builtin").live_grep({
-    cwd = M.opts.notes_dir,
+    cwd = M.opts.notes_root,
     prompt_title = "Grep Notes",
   })
 end
 
 function M.find_notes()
   require("telescope.builtin").find_files({
-    cwd = M.opts.notes_dir,
+    cwd = M.opts.notes_root,
     prompt_title = "Find Notes",
   })
 end
@@ -104,10 +104,10 @@ function M.toggle_checkbox()
 end
 
 function M.sync()
-  local notes_repo = vim.fn.fnamemodify(M.opts.notes_dir, ":h")
+  local notes_root = vim.fn.fnamemodify(M.opts.notes_dir, ":h")
   local cmd = string.format(
     "cd %s && git pull && git add -A && git commit -m 'sync notes'; git push",
-    vim.fn.shellescape(notes_repo)
+    vim.fn.shellescape(notes_root)
   )
 
   vim.fn.jobstart(cmd, {
