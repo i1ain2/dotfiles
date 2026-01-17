@@ -39,12 +39,19 @@ packages:
     # ==========================================
     - 'pulseaudio'                   # Audio server
     - 'pavucontrol'                  # PulseAudio volume control GUI
+    - 'playerctl'                    # MPRIS media player controller
+
+    # ==========================================
+    # Hardware Control
+    # ==========================================
+    - 'brightnessctl'                # Backlight brightness control
 
     # ==========================================
     # GUI Shell Components (Dank Material Shell)
     # ==========================================
     - 'quickshell'                   # Qt-based shell component framework
     - 'cava'                         # Console audio visualizer
+    - 'mako'                         # Lightweight Wayland notification daemon
     - 'wl-clipboard'                 # Wayland clipboard utilities (wl-copy/wl-paste)
     - 'cliphist'                     # Clipboard history manager
     - 'satty'                        # Screenshot annotation tool
@@ -108,6 +115,11 @@ packages:
 
     paru:
     # ==========================================
+    # Display & Power Management (AUR)
+    # ==========================================
+    - 'wlopm'                        # Wayland output power management
+
+    # ==========================================
     # GUI Shell (AUR)
     # ==========================================
     - 'dms-shell-bin'                # Dank Material Shell (binary)
@@ -121,8 +133,10 @@ packages:
     # Development Tools (AUR)
     # ==========================================
     - 'iwgtk'                        # Lightweight WiFi GUI (iwd frontend)
+    - 'lswt'                         # List Wayland windows (app-id, title, pid)
     - 'mise'                         # Polyglot runtime manager
     - 'carapace-bin'                 # multi-shell multi-command argument complete
+    - 'elephant-clipboard'           # Wayland clipboard manager
 
     # ==========================================
     # Other Applications (AUR)

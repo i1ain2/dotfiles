@@ -1,0 +1,5 @@
+# Load environment.d variables (for non-GDM/KDE display managers)
+# See: https://wiki.archlinux.org/title/Environment_variables#Graphical_environment
+set -o allexport
+source <(/usr/lib/systemd/user-environment-generators/30-systemd-environment-d-generator)
+set +o allexport

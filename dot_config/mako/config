@@ -1,0 +1,34 @@
+# mako notification daemon configuration
+# https://github.com/emersion/mako
+
+# Timeout in milliseconds (0 = no timeout)
+default-timeout=5000
+
+# Maximum number of visible notifications
+max-visible=5
+
+# Sort notifications by time (newest on top)
+sort=-time
+
+# Layout
+width=350
+height=100
+margin=10
+padding=15
+anchor=top-right
+
+# Appearance (Tokyo Night)
+background-color=#1a1b26ee
+text-color=#c0caf5
+border-color=#7aa2f7
+border-size=2
+border-radius=8
+progress-color=over #7aa2f7
+
+# Font
+font=HackGen35 Console NF 11
+
+# Icons
+icons=1
+icon-location=left
+max-icon-size=48
