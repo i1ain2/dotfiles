@@ -62,6 +62,7 @@ packages:
     # ==========================================
     - 'man'                          # Manual pages
     - 'tldr'                         # Simplified command examples
+    - 'glow'                         # Terminal Markdown renderer
 
     # ==========================================
     # Base Utilities
@@ -137,6 +138,7 @@ packages:
     - 'mise'                         # Polyglot runtime manager
     - 'navi'                         # Interactive cheatsheet tool
     - 'carapace'                     # multi-shell multi-command argument complete
+    - 'glow'                         # Terminal Markdown renderer
 
     brew_cask:
     # ==========================================

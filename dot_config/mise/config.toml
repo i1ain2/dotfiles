@@ -60,5 +60,10 @@ hyperfine = "latest"   # Command-line benchmarking tool
 # ==========================================
 "cargo:sheldon" = "latest"  # Shell plugin manager
 
+# ==========================================
+# npm Packages (Node.js ecosystem)
+# ==========================================
+"npm:agent-browser" = "latest"  # Browser automation for Claude Code
+
 [settings]
 idiomatic_version_file_enable_tools = []
