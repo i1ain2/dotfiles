@@ -5,7 +5,8 @@ config-version = 2
 
 # === Startup ===
 after-startup-command = [
-  'exec-and-forget aerotag server'
+  'exec-and-forget aerotag server',
+  'exec-and-forget borders active_color=0xff7aa2f7 inactive_color=0xff414868 width=5.0'
 ]
 
 # === Hooks ===
@@ -132,23 +133,23 @@ alt-shift-l = ['join-with right', 'mode main']
 # === Window Rules ===
 # Float windows
 [[on-window-detected]]
-if.app-id = "Finder"
+if.app-id = "com.apple.Finder"
 run = "layout floating"
 
 # === App to Tag Assignments ===
 # Tag 1: Terminal (Ghostty)
 [[on-window-detected]]
-if.app-id = "Ghostty"
+if.app-id = "com.mitchellh.ghostty"
 run = ['exec-and-forget aerotag window-move 1']
 
 # Tag 2: Firefox
 [[on-window-detected]]
-if.app-id = "Firefox"
+if.app-id = "org.mozilla.firefox"
 run = ['exec-and-forget aerotag window-move 2']
 
 # Tag 3: Chrome
 [[on-window-detected]]
-if.app-id = "Google Chrome"
+if.app-id = "com.google.Chrome"
 run = ['exec-and-forget aerotag window-move 3']
 
 # Tag 7: Steam
@@ -163,7 +164,7 @@ run = ['exec-and-forget aerotag window-move 8']
 
 # Tag 9: 1Password (float + tag)
 [[on-window-detected]]
-if.app-id = "1Password"
+if.app-id = "com.1password.1password"
 run = ['layout floating', 'exec-and-forget aerotag window-move 9']
 
 # Default: sync all new windows with aerotag
