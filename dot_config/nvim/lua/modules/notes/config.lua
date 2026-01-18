@@ -122,11 +122,13 @@ function M.sync()
         vim.notify("ノート同期完了", vim.log.levels.INFO, {
           title = "Notes",
           replace = notify_id,
+          timeout = 3000,
         })
       else
         vim.notify("ノート同期失敗", vim.log.levels.ERROR, {
           title = "Notes",
           replace = notify_id,
+          timeout = 5000,
         })
       end
     end,
