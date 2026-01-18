@@ -45,11 +45,11 @@ outer.right = 0
 # alt-slash = 'layout tiles horizontal vertical'
 # alt-comma = 'layout accordion horizontal vertical'
 
-# Focus (river-style: next/previous)
+# Focus
 alt-j = 'focus --ignore-floating dfs-next'
 alt-k = 'focus --ignore-floating dfs-prev'
 
-# Resize (river-style: h/l for ratio)
+# Resize
 alt-h = 'resize smart -50'
 alt-l = 'resize smart +50'
 
@@ -135,7 +135,7 @@ alt-shift-l = ['join-with right', 'mode main']
 if.app-id = "Finder"
 run = "layout floating"
 
-# === App to Tag Assignments (river-style) ===
+# === App to Tag Assignments ===
 # Tag 1: Terminal (Ghostty)
 [[on-window-detected]]
 if.app-id = "Ghostty"
