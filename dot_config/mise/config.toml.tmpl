@@ -59,6 +59,9 @@ hyperfine = "latest"   # Command-line benchmarking tool
 # Cargo Packages (Rust ecosystem)
 # ==========================================
 "cargo:sheldon" = "latest"  # Shell plugin manager
+{{ if eq .chezmoi.os "darwin" -}}
+"cargo:aerotag" = "latest"  # AeroSpace window tag utility (macOS only)
+{{ end -}}
 
 # ==========================================
 # npm Packages (Node.js ecosystem)
