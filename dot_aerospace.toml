@@ -1,0 +1,152 @@
+# AeroSpace + aerotag Configuration
+# https://github.com/typester/aerotag
+
+config-version = 2
+
+# === Startup ===
+after-startup-command = [
+  'exec-and-forget aerotag server',
+  'exec-and-forget borders active_color=0xff7aa2f7 inactive_color=0xff414868 width=5.0'
+]
+
+# === Hooks ===
+# Sync state when workspace changes (e.g. clicking dock icons, monitor changes)
+exec-on-workspace-change = ['/bin/bash', '-c', 'aerotag hook']
+
+# === General Settings ===
+start-at-login = true
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+accordion-padding = 30
+default-root-container-layout = 'tiles'
+default-root-container-orientation = 'auto'
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+automatically-unhide-macos-hidden-apps = false
+on-mode-changed = []
+
+# === Environment Variables ===
+[exec.env-vars]
+PATH = '/opt/homebrew/bin:${HOME}/.cargo/bin:${HOME}/.local/share/mise/shims:${PATH}'
+
+[key-mapping]
+preset = 'qwerty'
+
+[gaps]
+inner.horizontal = 0
+inner.vertical = 0
+outer.left = 0
+outer.bottom = 0
+outer.top = 0
+outer.right = 0
+
+# === Main Bindings ===
+[mode.main.binding]
+
+# Layout
+alt-slash = 'layout tiles horizontal vertical'
+alt-comma = 'layout accordion horizontal vertical'
+
+# Focus
+alt-j = 'focus --ignore-floating dfs-next'
+alt-k = 'focus --ignore-floating dfs-prev'
+
+# Resize
+alt-h = 'resize smart -50'
+alt-l = 'resize smart +50'
+
+# Move window
+alt-shift-j = 'move down'
+alt-shift-k = 'move up'
+alt-shift-h = 'move left'
+alt-shift-l = 'move right'
+
+# === aerotag: Tag Navigation ===
+alt-1 = 'exec-and-forget aerotag tag-view 1'
+alt-2 = 'exec-and-forget aerotag tag-view 2'
+alt-3 = 'exec-and-forget aerotag tag-view 3'
+alt-4 = 'exec-and-forget aerotag tag-view 4'
+alt-5 = 'exec-and-forget aerotag tag-view 5'
+alt-6 = 'exec-and-forget aerotag tag-view 6'
+alt-7 = 'exec-and-forget aerotag tag-view 7'
+alt-8 = 'exec-and-forget aerotag tag-view 8'
+alt-9 = 'exec-and-forget aerotag tag-view 9'
+alt-0 = 'exec-and-forget aerotag tag-view 10'
+
+# === aerotag: Move Window to Tag ===
+alt-shift-1 = 'exec-and-forget aerotag window-move 1'
+alt-shift-2 = 'exec-and-forget aerotag window-move 2'
+alt-shift-3 = 'exec-and-forget aerotag window-move 3'
+alt-shift-4 = 'exec-and-forget aerotag window-move 4'
+alt-shift-5 = 'exec-and-forget aerotag window-move 5'
+alt-shift-6 = 'exec-and-forget aerotag window-move 6'
+alt-shift-7 = 'exec-and-forget aerotag window-move 7'
+alt-shift-8 = 'exec-and-forget aerotag window-move 8'
+alt-shift-9 = 'exec-and-forget aerotag window-move 9'
+alt-shift-0 = 'exec-and-forget aerotag window-move 10'
+
+# === aerotag: Toggle Tag Visibility (Multi-tag) ===
+alt-ctrl-1 = 'exec-and-forget aerotag tag-toggle 1'
+alt-ctrl-2 = 'exec-and-forget aerotag tag-toggle 2'
+alt-ctrl-3 = 'exec-and-forget aerotag tag-toggle 3'
+alt-ctrl-4 = 'exec-and-forget aerotag tag-toggle 4'
+alt-ctrl-5 = 'exec-and-forget aerotag tag-toggle 5'
+alt-ctrl-6 = 'exec-and-forget aerotag tag-toggle 6'
+alt-ctrl-7 = 'exec-and-forget aerotag tag-toggle 7'
+alt-ctrl-8 = 'exec-and-forget aerotag tag-toggle 8'
+alt-ctrl-9 = 'exec-and-forget aerotag tag-toggle 9'
+alt-ctrl-0 = 'exec-and-forget aerotag tag-toggle 10'
+
+# === aerotag: Toggle Window Tag Membership ===
+alt-shift-ctrl-1 = 'exec-and-forget aerotag window-toggle 1'
+alt-shift-ctrl-2 = 'exec-and-forget aerotag window-toggle 2'
+alt-shift-ctrl-3 = 'exec-and-forget aerotag window-toggle 3'
+alt-shift-ctrl-4 = 'exec-and-forget aerotag window-toggle 4'
+alt-shift-ctrl-5 = 'exec-and-forget aerotag window-toggle 5'
+alt-shift-ctrl-6 = 'exec-and-forget aerotag window-toggle 6'
+alt-shift-ctrl-7 = 'exec-and-forget aerotag window-toggle 7'
+alt-shift-ctrl-8 = 'exec-and-forget aerotag window-toggle 8'
+alt-shift-ctrl-9 = 'exec-and-forget aerotag window-toggle 9'
+alt-shift-ctrl-0 = 'exec-and-forget aerotag window-toggle 10'
+
+# === aerotag: History ===
+alt-tab = 'exec-and-forget aerotag tag-last'
+
+# === Monitor ===
+alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
+alt-ctrl-o = 'exec-and-forget aerotag window-move-monitor next'
+
+# === Service Mode ===
+alt-shift-semicolon = 'mode service'
+
+# === Service Mode Bindings ===
+[mode.service.binding]
+esc = ['reload-config', 'mode main']
+r = ['flatten-workspace-tree', 'mode main']
+f = ['layout floating tiling', 'mode main']
+backspace = ['close-all-windows-but-current', 'mode main']
+
+alt-shift-h = ['join-with left', 'mode main']
+alt-shift-j = ['join-with down', 'mode main']
+alt-shift-k = ['join-with up', 'mode main']
+alt-shift-l = ['join-with right', 'mode main']
+
+# === App to Tag Assignments ===
+# Tag 1: Terminal (Ghostty)
+[[on-window-detected]]
+if.app-id = "com.mitchellh.ghostty"
+run = ['exec-and-forget aerotag window-move 1']
+
+# Tag 2: Firefox
+[[on-window-detected]]
+if.app-id = "org.mozilla.firefox"
+run = ['exec-and-forget aerotag window-move 2']
+
+# Tag 3: Chrome
+[[on-window-detected]]
+if.app-id = "com.google.Chrome"
+run = ['exec-and-forget aerotag window-move 3']
+
+# Default: unassigned apps go to Tag 0
+[[on-window-detected]]
+check-further-callbacks = false
+run = ['exec-and-forget aerotag window-move 10', 'exec-and-forget aerotag hook']

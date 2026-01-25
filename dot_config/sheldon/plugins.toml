@@ -1,0 +1,22 @@
+shell = "zsh"
+
+[plugins.zsh-async]
+github = "mafredri/zsh-async"
+
+[plugins.pure]
+github = "sindresorhus/pure"
+
+[plugins.zsh-abbr]
+github = "olets/zsh-abbr"
+
+[plugins.syntax-highlighting]
+github = "zdharma/fast-syntax-highlighting"
+
+[plugins.auto-suggestions]
+github = "zsh-users/zsh-autosuggestions"
+
+[plugins.fzf-tab]
+github = "Aloxaf/fzf-tab"
+
+[plugins.fzf-git]
+github = "junegunn/fzf-git.sh"

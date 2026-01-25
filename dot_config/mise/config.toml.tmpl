@@ -1,0 +1,43 @@
+[tools]
+# runtime
+bun = "latest"
+go = "latest"
+node = "latest"
+pnpm = "latest"
+uv = "latest"
+
+# must
+bat = "latest"
+"cargo:sheldon" = "latest"
+delta = "latest"
+fd = "latest"
+fzf = "latest"
+ghq = "latest"
+github-cli = "latest"
+jq = "latest"
+lazygit = "latest"
+prek = "latest"
+ripgrep = "latest"
+tmux = "latest"
+tree-sitter = "latest"
+
+# optional
+bottom = "latest"
+fastfetch = "latest"
+gcloud = "latest"
+hyperfine = "latest"
+kind = "latest"
+kubie = "latest"
+lazydocker = "latest"
+"npm:agent-browser" = "latest"
+"npm:difit" = "latest"
+stern = "latest"
+terraform = "latest"
+yq = "latest"
+
+{{ if eq .chezmoi.os "darwin" -}}
+"cargo:aerotag" = "latest"
+{{ end -}}
+
+[settings]
+idiomatic_version_file_enable_tools = []

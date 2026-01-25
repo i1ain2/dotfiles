@@ -1,0 +1,7 @@
+README.md
+CLAUDE.md
+
+# Linux only
+{{ if ne .chezmoi.os "linux" }}
+.zprofile
+{{ end }}

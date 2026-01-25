@@ -1,0 +1,20 @@
+# Font Configuration
+font-family = HackGen35 Console NF
+font-size = 14
+
+# Color Theme
+theme = TokyoNight Night
+
+# Claude
+keybind = shift+enter=text:\x1b\r
+
+# Disable default fullscreen toggle
+keybind = ctrl+enter=unbind
+
+{{ if eq .chezmoi.os "darwin" -}}
+# macOS: Left Option key as Alt/Meta for tmux
+macos-option-as-alt = left
+keybind = alt+left=unbind
+keybind = alt+right=unbind
+{{- end }}
+

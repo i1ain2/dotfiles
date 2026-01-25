@@ -1,0 +1,30 @@
+#!/bin/bash
+function echo_info() {
+  echo -e "\033[32m$1\033[0m"
+}
+
+trap 'echo "Script Interrupted"; exit 1' 2
+
+{{ if eq .chezmoi.os "darwin" -}}
+echo_info "start Darwin setup"
+
+
+if ! type brew > /dev/null 2>&1; then
+  echo_info "Error: brew is not found. You need to install brew by manual."
+  exit 1
+fi
+
+echo_info "update repositories"
+
+echo_info "install packages by brew"
+{{ range .packages.darwin.brew }}
+brew install {{ . | quote }}
+{{ end -}}
+
+echo_info "install packages by brew cask"
+{{ range .packages.darwin.brew_cask }}
+brew install --cask {{ . | quote }}
+{{ end -}}
+
+echo_info "finish Darwin setup"
+{{ end -}}

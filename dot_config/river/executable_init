@@ -1,0 +1,220 @@
+#!/usr/bin/env bash
+
+# River Window Manager Configuration
+
+# === Environment Variables ===
+export QT_QPA_PLATFORM=wayland
+export QT_QPA_PLATFORMTHEME=gtk3
+export ELECTRON_OZONE_PLATFORM_HINT=auto
+
+# === Input Configuration ===
+# Keyboard layout with ctrl:nocaps
+riverctl keyboard-layout -options "ctrl:nocaps" us
+
+# Keyboard repeat rate
+riverctl set-repeat 50 300
+
+# === Modifier Key ===
+mod="Super"
+
+# === Application Launchers ===
+# Application launcher
+riverctl map normal $mod Space spawn 'fcitx5-remote -c && walker'
+
+# === Window Management ===
+# Close window
+riverctl map normal $mod+Shift C close
+
+# Toggle fullscreen
+riverctl map normal $mod F toggle-fullscreen
+
+# Toggle float (Mod+V like niri)
+riverctl map normal $mod V toggle-float
+
+# === Focus Navigation ===
+riverctl map normal $mod J focus-view next
+riverctl map normal $mod K focus-view previous
+
+# Arrow key alternatives
+riverctl map normal $mod Down focus-view next
+riverctl map normal $mod Up focus-view previous
+
+# === Window Movement ===
+riverctl map normal $mod+Shift J swap next
+riverctl map normal $mod+Shift K swap previous
+
+# Arrow key alternatives
+riverctl map normal $mod+Shift Down swap next
+riverctl map normal $mod+Shift Up swap previous
+
+# Zoom/bump to top
+riverctl map normal $mod Return zoom
+
+# === Layout Control (rivercarro) ===
+# Layout direction
+riverctl map normal $mod+Control Up send-layout-cmd rivercarro "main-location top"
+riverctl map normal $mod+Control Right send-layout-cmd rivercarro "main-location right"
+riverctl map normal $mod+Control Down send-layout-cmd rivercarro "main-location bottom"
+riverctl map normal $mod+Control Left send-layout-cmd rivercarro "main-location left"
+
+# Main ratio adjustment
+riverctl map normal $mod H send-layout-cmd rivercarro "main-ratio -0.05"
+riverctl map normal $mod L send-layout-cmd rivercarro "main-ratio +0.05"
+
+# Main count adjustment
+riverctl map normal $mod+Shift H send-layout-cmd rivercarro "main-count +1"
+riverctl map normal $mod+Shift L send-layout-cmd rivercarro "main-count -1"
+
+# Gap adjustment
+riverctl map normal $mod+Alt Minus send-layout-cmd rivercarro "inner-gaps -2"
+riverctl map normal $mod+Alt Equal send-layout-cmd rivercarro "inner-gaps +2"
+
+# === Tags (Workspace equivalent) ===
+for i in $(seq 1 9); do
+    tags=$((1 << (i - 1)))
+
+    # Mod+[1-9] to focus tag
+    riverctl map normal $mod "$i" set-focused-tags $tags
+
+    # Mod+Shift+[1-9] to move window to tag
+    riverctl map normal $mod+Shift "$i" set-view-tags $tags
+
+    # Mod+Control+[1-9] to toggle tag visibility
+    riverctl map normal $mod+Control "$i" toggle-focused-tags $tags
+
+    # Mod+Shift+Control+[1-9] to toggle window's tag membership
+    riverctl map normal $mod+Shift+Control "$i" toggle-view-tags $tags
+done
+
+# Mod+0 to show all tags
+all_tags=$(((1 << 32) - 1))
+riverctl map normal $mod 0 set-focused-tags $all_tags
+riverctl map normal $mod+Shift 0 set-view-tags $all_tags
+
+# Previous/Next tag
+riverctl map normal $mod U set-focused-tags $((1 << 0))
+riverctl map normal $mod I set-focused-tags $((1 << 1))
+riverctl map normal $mod Page_Down spawn 'riverctl set-focused-tags $(($(riverctl get-focused-tags) << 1))'
+riverctl map normal $mod Page_Up spawn 'riverctl set-focused-tags $(($(riverctl get-focused-tags) >> 1))'
+
+# === Mouse Bindings ===
+riverctl map-pointer normal $mod BTN_LEFT move-view
+riverctl map-pointer normal $mod BTN_RIGHT resize-view
+riverctl map-pointer normal $mod BTN_MIDDLE toggle-float
+
+# === Floating Window Movement/Resize ===
+riverctl map normal $mod+Alt+Shift H resize horizontal -100
+riverctl map normal $mod+Alt+Shift J resize vertical 100
+riverctl map normal $mod+Alt+Shift K resize vertical -100
+riverctl map normal $mod+Alt+Shift L resize horizontal 100
+
+riverctl map normal $mod+Alt+Control H snap left
+riverctl map normal $mod+Alt+Control J snap down
+riverctl map normal $mod+Alt+Control K snap up
+riverctl map normal $mod+Alt+Control L snap right
+
+# === Session Management ===
+# Exit river
+riverctl map normal $mod+Shift E exit
+
+# Lock screen
+riverctl map normal $mod+Alt L spawn 'swaylock -f -c 000000'
+
+# === Media Keys ===
+for mode in normal locked; do
+    # Volume control (using pactl from pulseaudio)
+    riverctl map $mode None XF86AudioRaiseVolume spawn 'pactl set-sink-volume @DEFAULT_SINK@ +5%'
+    riverctl map $mode None XF86AudioLowerVolume spawn 'pactl set-sink-volume @DEFAULT_SINK@ -5%'
+    riverctl map $mode None XF86AudioMute spawn 'pactl set-sink-mute @DEFAULT_SINK@ toggle'
+
+    # Media playback
+    riverctl map $mode None XF86AudioMedia spawn 'playerctl play-pause'
+    riverctl map $mode None XF86AudioPlay spawn 'playerctl play-pause'
+    riverctl map $mode None XF86AudioPrev spawn 'playerctl previous'
+    riverctl map $mode None XF86AudioNext spawn 'playerctl next'
+
+    # Brightness control
+    riverctl map $mode None XF86MonBrightnessUp spawn 'brightnessctl set +5%'
+    riverctl map $mode None XF86MonBrightnessDown spawn 'brightnessctl set 5%-'
+done
+
+# === Screenshot ===
+# Edit clipboard image (Alt+Shift+W)
+riverctl map normal Alt+Shift W spawn 'wl-paste | satty --filename -'
+
+# Screenshot selection (Alt+Shift+4) → clipboard + satty
+riverctl map normal Alt+Shift 4 spawn 'grim -g "$(slurp)" - | tee >(wl-copy) | satty --filename -'
+# Screenshot fullscreen (Alt+Shift+3) → clipboard + satty
+riverctl map normal Alt+Shift 3 spawn 'grim - | tee >(wl-copy) | satty --filename -'
+
+# === Passthrough Mode ===
+riverctl declare-mode passthrough
+riverctl map normal $mod F11 enter-mode passthrough
+riverctl map passthrough $mod F11 enter-mode normal
+
+# === Appearance ===
+# Border settings
+riverctl border-width 2
+riverctl border-color-focused 0x93a1a1
+riverctl border-color-unfocused 0x586e75
+
+# Background color
+riverctl background-color 0x1a1b26
+
+# === Window Rules ===
+# App → Tag assignments
+riverctl rule-add -app-id 'ghostty' tags $((1 << 0))           # Tag 1
+riverctl rule-add -app-id 'firefox' tags $((1 << 1))           # Tag 2
+riverctl rule-add -app-id 'google-chrome' tags $((1 << 2))     # Tag 3
+riverctl rule-add -app-id 'steam' tags $((1 << 6))     # Tag 7
+riverctl rule-add -app-id 'discord' tags $((1 << 7))     # Tag 8
+riverctl rule-add -app-id '1password' tags $((1 << 8))     # Tag 9
+
+# Firefox Picture-in-Picture
+riverctl rule-add -app-id 'firefox' -title 'Picture-in-Picture' float
+riverctl rule-add -app-id 'org.mozilla.firefox' -title 'Picture-in-Picture' float
+
+# Float dialogs
+riverctl rule-add -title 'Open File' float
+riverctl rule-add -title 'Save File' float
+
+# System applets (like sway)
+riverctl rule-add -app-id 'blueman-manager' float
+riverctl rule-add -app-id 'org.twosheds.iwgtk' float
+
+# Float
+riverctl rule-add -app-id '1password' float
+
+# === Autostart ===
+# Idle management and auto-lock (with display power off like sway)
+swayidle -w \
+    timeout 3600 'swaylock -f -c 000000' \
+    timeout 7200 'wlopm --off \*' resume 'wlopm --on \*' \
+    before-sleep 'swaylock -f -c 000000' &
+
+# IME
+fcitx5 -d --replace &
+
+# Clipboard history
+"$HOME/.local/bin/cliphist-filtered.sh" &
+
+# Status bar
+waybar &
+
+# Notification daemon (delay to ensure Wayland session is ready)
+(sleep 1 && mako) &
+
+# Walker launcher (elephant backend + walker service)
+elephant &
+sleep 0.5 && walker --gapplication-service &
+
+# Wallpaper (if exists)
+if [ -f "$HOME/wallpaper.png" ]; then
+    swaybg -i "$HOME/wallpaper.png" &
+fi
+
+# === Layout Generator ===
+# Set default layout and start rivercarro
+riverctl default-layout rivercarro
+riverctl default-attach-mode bottom
+rivercarro -inner-gaps 6 -outer-gaps 6 &

@@ -1,0 +1,24 @@
+# Walker - Application Launcher Configuration
+
+placeholder = "Search..."
+fullscreen = false
+ssh_host_file = "~/.ssh/known_hosts"
+
+[list]
+max_entries = 50
+show_initial_entries = true
+
+[activation_mode]
+use_alt = true
+
+[keybinds]
+next = ["Down", "ctrl n"]
+previous = ["Up", "ctrl p"]
+
+[providers.actions]
+desktopapplications = [
+  { action = "pin", bind = "ctrl shift p", after = "AsyncReload" },
+  { action = "unpin", bind = "ctrl shift p", after = "AsyncReload" },
+  { action = "pinup", bind = "ctrl shift n", after = "AsyncReload" },
+  { action = "pindown", bind = "ctrl shift m", after = "AsyncReload" },
+]

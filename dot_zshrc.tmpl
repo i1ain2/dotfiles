@@ -1,0 +1,42 @@
+# PATH
+source ~/.config/zsh/path.zsh
+
+# Completion (must be before sheldon for fzf-tab)
+autoload -Uz compinit
+compinit
+
+# Plugin manager
+eval "$(sheldon source)"
+
+# Environment
+export EDITOR=nvim
+[[ -f "$HOME/.1password/agent.sock" ]] && export SSH_AUTH_SOCK="$HOME/.1password/agent.sock"
+
+# History
+setopt share_history
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+
+# Emacs keybindings
+bindkey -e
+bindkey " " abbr-expand-and-insert
+
+# Tool initializations
+(( $+commands[fzf] )) && source <(fzf --zsh)
+(( $+commands[mise] )) && eval "$(mise activate zsh)"
+(( $+commands[zoxide] )) && eval "$(zoxide init zsh --hook pwd)"
+[[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
+if (( $+commands[navi] )); then
+  eval "$(navi widget zsh)"
+  bindkey '^x^h' _navi_widget
+fi
+
+# Functions
+source ~/.config/zsh/functions.zsh
+
+# Alias & Abbreviations
+source ~/.config/zsh/aliases.zsh
+
+# Local settings
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local

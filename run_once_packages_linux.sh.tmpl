@@ -1,0 +1,34 @@
+#!/bin/bash
+function echo_info() {
+  echo -e "\033[32m$1\033[0m"
+}
+
+trap 'echo "Script Interrupted"; exit 1' 2
+
+{{ if .chezmoi.osRelease -}}
+{{ if eq .chezmoi.osRelease.name "Arch Linux" -}}
+echo_info "start Arch Linux setup"
+
+if type paru > /dev/null 2>&1; then
+  echo_info "already installed paru"
+else
+  echo_info "install paru"
+  sudo pacman -S --needed base-devel --noconfirm
+  git clone https://aur.archlinux.org/paru.git /tmp/paru
+  cd /tmp/paru
+  makepkg -si
+fi
+
+echo_info "install packages by pacman"
+{{ range .packages.linux.pacman }}
+sudo pacman -S --needed {{ . | quote }} --noconfirm
+{{ end -}}
+
+echo_info "install packages by paru"
+{{ range .packages.linux.paru }}
+paru -S --needed {{ . | quote }} --noconfirm
+{{ end -}}
+
+echo_info "finish Arch Linux setup"
+{{ end -}}
+{{ end -}}

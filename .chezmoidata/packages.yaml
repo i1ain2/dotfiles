@@ -1,0 +1,138 @@
+packages:
+  # rustup: Manual installation required
+  # Build tools: Installed via shell scripts
+
+  linux:
+    pacman:
+      # Window Manager & Display
+      - 'wayland'
+      - 'xwayland-satellite'
+      - 'xdg-desktop-portal-gnome'
+      - 'xdg-desktop-portal-gtk'
+      - 'ly'
+
+      # Japanese Input
+      - 'fcitx5'
+      - 'fcitx5-configtool'
+      - 'fcitx5-gtk'
+      - 'fcitx5-mozc'
+      - 'fcitx5-gt'
+
+      # Networking
+      - 'bluez'
+      - 'bluez-utils'
+      - 'iwd'
+      - 'wayvnc'
+
+      # Audio
+      - 'pulseaudio'
+      - 'pavucontrol'
+      - 'playerctl'
+
+      # Backlight
+      - 'brightnessctl'
+
+      # GUI Shell Components
+      - 'mako'
+      - 'wl-clipboard'
+      - 'cliphist'
+      - 'satty'
+      - 'qt6-multimedia'
+
+      # Terminal
+      - 'ghostty'
+
+      # Documentation
+      - 'man'
+      - 'tldr'
+      - 'glow'
+
+      # Utilities
+      - 'tree'
+      - 'unzip'
+      - 'wget'
+      - 'xdg-utils'
+      - 'feh'
+
+      # Browser & File Manager
+      - 'firefox'
+      - 'firefox-i18n-ja'
+      - 'yazi'
+
+      # Shell
+      - 'zsh'
+
+      # Development
+      - 'neovim'
+      - 'git'
+      - 'docker'
+      - 'docker-buildx'
+      - 'httpie'
+      - 'navi'
+
+      # Applications
+      - 'tailscale'
+      - 'obsidian'
+
+    paru:
+      # Display & Power
+      - 'wlopm'
+
+      # Fonts
+      - 'ttf-hackgen'
+
+      # Development
+      - 'iwgtk'
+      - 'lswt'
+      - 'mise'
+      - 'elephant-gapplication'
+      - 'elephant-clipboard'
+
+      # Applications
+      - '1password'
+
+  darwin:
+    brew:
+      # Development (CLI)
+      - 'neovim'
+      - 'httpie'
+      - 'mise'
+      - 'navi'
+      - 'glow'
+
+    brew_cask:
+      # Terminal & Launcher
+      - 'ghostty'
+      - 'raycast'
+
+      # Fonts
+      - 'font-hack-nerd-font'
+
+      # Browsers
+      - 'firefox'
+      - 'google-chrome'
+
+      # Development & Editors
+      - 'visual-studio-code'
+      - 'coteditor'
+      - 'httpie'
+
+      # Communication
+      - 'discord'
+
+      # Productivity
+      - 'obsidian'
+      - 'todoist'
+      - 'anki'
+
+      # Utilities
+      - '1password'
+      - 'dropbox'
+      - 'tailscale'
+      - 'nikitabobko/tap/aerospace'
+
+    manual:
+      # App Store or direct download
+      - 'RunCat'
+      - 'session'
+      - 'voicevox'

@@ -1,0 +1,29 @@
+#!/bin/bash
+set -euo pipefail
+
+echo_info() {
+  echo -e "\033[32m[INFO]\033[0m $1"
+}
+
+{{ if or (eq .chezmoi.os "darwin") (eq .chezmoi.osRelease.name "Arch Linux") -}}
+echo_info "Checking rustup installation..."
+
+if ! type rustup > /dev/null 2>&1; then
+  echo -e "\033[31m[ERROR]\033[0m rustup is not installed" >&2
+  echo "" >&2
+  echo "Please install rustup manually:" >&2
+  echo "" >&2
+  echo "For macOS/Linux:" >&2
+  echo "  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh" >&2
+  echo "" >&2
+  echo "After installation, run:" >&2
+  echo "  source \$HOME/.cargo/env" >&2
+  echo "  chezmoi apply" >&2
+  exit 1
+fi
+
+echo_info "rustup is already installed"
+
+{{ else -}}
+echo_info "Skipping rustup check on unsupported OS"
+{{ end -}}

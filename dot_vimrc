@@ -1,0 +1,37 @@
+set encoding=utf-8
+let mapleader = "\<Space>"
+
+set expandtab
+set tabstop=2
+set shiftwidth=2
+autocmd FileType python setlocal et ts=4 sts=4
+autocmd FileType go setlocal sw=4 ts=4 sts=4 noet
+
+set list
+set listchars=tab:»-,trail:-,nbsp:%,eol:↲
+
+set backspace=indent,eol,start
+
+set belloff=all
+
+nnoremap <silent> <C-l> :bnext<CR>
+nnoremap <silent> <C-h> :bprev<CR>
+
+nnoremap [q :cprevious<CR>
+nnoremap ]q :cnext<CR>
+nnoremap [Q :<C-u>cfirst<CR>
+nnoremap ]Q :<C-u>clast<CR>
+autocmd QuickFixCmdPost *grep* cwindow
+
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+set wrapscan
+
+set wildignore=*/node_modules/**,*/git/**
+
+nmap n nzz
+nmap N Nzz
+nmap * *zz
+nmap # #zz
