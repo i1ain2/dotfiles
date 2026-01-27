@@ -217,4 +217,5 @@ fi
 # Set default layout and start rivercarro
 riverctl default-layout rivercarro
 riverctl default-attach-mode bottom
-rivercarro -inner-gaps 6 -outer-gaps 6 &
+rivercarro -outer-gaps 0 -per-tag &
+

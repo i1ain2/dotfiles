@@ -69,6 +69,7 @@ packages:
       - 'docker-buildx'
       - 'httpie'
       - 'navi'
+      - 'jujutsu'
 
       # Applications
       - 'tailscale'
@@ -77,6 +78,9 @@ packages:
     paru:
       # Display & Power
       - 'wlopm'
+
+      # Shell
+      - 'sheldon'
 
       # Fonts
       - 'ttf-hackgen'
@@ -93,12 +97,16 @@ packages:
 
   darwin:
     brew:
+      # Shell
+      - 'sheldon'
+
       # Development (CLI)
       - 'neovim'
       - 'httpie'
       - 'mise'
       - 'navi'
       - 'glow'
+      - 'jj'
 
     brew_cask:
       # Terminal & Launcher

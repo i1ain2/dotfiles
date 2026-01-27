@@ -1,13 +1,6 @@
 # PATH
 source ~/.config/zsh/path.zsh
 
-# Completion (must be before sheldon for fzf-tab)
-autoload -Uz compinit
-compinit
-
-# Plugin manager
-eval "$(sheldon source)"
-
 # Environment
 export EDITOR=nvim
 [[ -f "$HOME/.1password/agent.sock" ]] && export SSH_AUTH_SOCK="$HOME/.1password/agent.sock"
@@ -17,6 +10,17 @@ setopt share_history
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
+
+# Completion (must be before sheldon for fzf-tab)
+autoload -Uz compinit
+compinit
+
+# Plugin manager
+if (( ! $+commands[sheldon] )); then
+  echo "sheldon not found, skipping zshrc initialization" >&2
+  return
+fi
+eval "$(sheldon source)"
 
 # Emacs keybindings
 bindkey -e
